@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "styled-components";
+import { elementClasses } from "../../assets/SampleData";
 
 export interface elementProps {
-  number: number;
+  number: number | string;
   name: string;
-  color: string;
+  elementClassName: string;
 }
 
 export interface ElementWrapperProps {
@@ -18,9 +19,9 @@ export const ElementWrapper = styled.div<ElementWrapperProps>`
   justify-content: center;
   align-items: center;
 `;
-function Element({ number, name, color }: elementProps) {
+function Element({ number, name, elementClassName }: elementProps) {
   return (
-    <ElementWrapper color={color}>
+    <ElementWrapper color={elementClasses[elementClassName]}>
       <h1>{name}</h1>
       <h3>{number}</h3>
     </ElementWrapper>
