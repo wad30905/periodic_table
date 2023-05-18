@@ -1,6 +1,8 @@
-import { isWhiteSpaceLike } from "typescript";
-import { elementProps } from "../components/molecules/Element";
-
+export interface elementProps {
+  number: number | string;
+  name: string;
+  elementClassName: string;
+}
 export interface ElementClassesProps {
   [key: string]: string;
 }

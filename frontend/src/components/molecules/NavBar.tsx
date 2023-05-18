@@ -1,88 +1,73 @@
-import React from "react";
-// Bootstrap CSS
-import "bootstrap/dist/css/bootstrap.min.css";
-// Bootstrap Bundle JS
-import "bootstrap/dist/js/bootstrap.bundle.min";
+import React, { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
+import small_black_logo from "/Users/hongjinpark/Desktop/mtg/periodic_table/frontend/src/assets/images/small_black_logo.png";
+import styled from "styled-components";
+
+export const Img = styled.img`
+  width: 60px;
+  height: 60px;
+`;
+export const Nav = styled.div`
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  z-index: 1000;
+  height: 50px;
+`;
+
+export const H1_White = styled.div`
+  font-size: 30px;
+  color: white;
+  margin: 20px;
+`;
+export const H1_Black = styled.div`
+  font-size: 30px;
+  color: black;
+  margin: 20px;
+`;
 
 function NavBar() {
+  const topBarRef = useRef<any>();
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const topbar = topBarRef.current;
+    const threshold = 50;
+    window.addEventListener("scroll", function () {
+      if (window.pageYOffset > threshold) {
+        topbar!.classList.add("scrolled");
+        setScrolled(true);
+      } else {
+        topbar!.classList.remove("scrolled");
+        setScrolled(false);
+      }
+    });
+  }, []);
+  console.log("scrolled", scrolled);
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary">
-      <div className="container-fluid">
-        <a className="navbar-brand" href="#">
-          Navbar
-        </a>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="#">
-                Home
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">
-                Link
-              </a>
-            </li>
-            <li className="nav-item dropdown">
-              <a
-                className="nav-link dropdown-toggle"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Dropdown
-              </a>
-              <ul className="dropdown-menu">
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Action
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Another action
-                  </a>
-                </li>
-                <li>
-                  <hr className="dropdown-divider" />
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Something else here
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link disabled">Disabled</a>
-            </li>
-          </ul>
-          <form className="d-flex" role="search">
-            <input
-              className="form-control me-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-            <button className="btn btn-outline-success" type="submit">
-              Search
-            </button>
-          </form>
-        </div>
-      </div>
-    </nav>
+    <Nav ref={topBarRef} className="topbar">
+      <Link
+        to={"/"}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        <Img src={small_black_logo} />
+        {scrolled ? (
+          <H1_White>MATERIALS THEORY GROUP</H1_White>
+        ) : (
+          <H1_Black>MATERIALS THEORY GROUP</H1_Black>
+        )}
+      </Link>
+    </Nav>
   );
 }
 

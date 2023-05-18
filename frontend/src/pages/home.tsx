@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   elementColumns,
+  elementProps,
   FirstColumn,
   SubElementRows,
 } from "../assets/SampleData";
 import NavBar from "../components/molecules/NavBar";
 import styled from "styled-components";
-import Element, { elementProps } from "../components/molecules/Element";
+import { FiSearch } from "react-icons/fi";
+import Element from "../components/molecules/Element";
+import { AiOutlineDownCircle } from "react-icons/ai";
+
 export const Column = styled.div`
   display: flex;
   flex-direction: column;
@@ -15,6 +19,7 @@ export const Column = styled.div`
 `;
 export const Table = styled.div`
   display: flex;
+  margin: 20px auto;
 `;
 
 export const SubTable = styled.div`
@@ -25,29 +30,87 @@ export const SubTable = styled.div`
 export const Row = styled.div`
   display: flex;
 `;
+
+export const Input = styled.input`
+  border: 1px solid #111;
+  border-radius: 5px;
+  padding: 10px;
+`;
+
+export const TableWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 function Home() {
+  const [searchStr, setSearchStr] = useState<string>("");
+  const onInput = (e: any) => {
+    setSearchStr(e.target.value);
+  };
+  const onElementClick = (e: any) => {
+    setSearchStr((prev) => prev + e.target.id);
+  };
+  console.log(searchStr);
+  const onSlide = () => {
+    window.scrollTo({
+      top: document.getElementById("content")!.offsetHeight,
+      behavior: "smooth",
+    });
+  };
+
   return (
-    <>
+    <div id="content" style={{ height: "3000px" }}>
       <NavBar />
-      <Table>
-        {elementColumns.map((item: elementProps[], index: number) => (
-          <Column key={index}>
-            {item.map((element: elementProps, elementIndex: number) => (
-              <Element {...element} />
+      <div style={{ marginTop: "80px" }}>
+        <TableWrapper>
+          <div className="search-box" style={{ width: "80%" }}>
+            <input
+              type="text"
+              placeholder="Search..."
+              onChange={onInput}
+              value={searchStr}
+            />
+            <button type="submit">
+              <FiSearch />
+            </button>
+          </div>
+          <Table>
+            {elementColumns.map((item: elementProps[], index: number) => (
+              <Column key={index}>
+                {item.map((element: elementProps, elementIndex: number) => (
+                  <Element
+                    {...element}
+                    key={elementIndex}
+                    onclick={onElementClick}
+                  />
+                ))}
+              </Column>
             ))}
-          </Column>
-        ))}
-      </Table>
-      <SubTable>
-        {SubElementRows.map((item: elementProps[], index: number) => (
-          <Row key={index}>
-            {item.map((element: elementProps, elementIndex: number) => (
-              <Element {...element} />
+          </Table>
+          <SubTable>
+            {SubElementRows.map((item: elementProps[], index: number) => (
+              <Row key={index}>
+                {item.map((element: elementProps, elementIndex: number) => (
+                  <Element
+                    {...element}
+                    key={elementIndex}
+                    onclick={onElementClick}
+                  />
+                ))}
+              </Row>
             ))}
-          </Row>
-        ))}
-      </SubTable>
-    </>
+          </SubTable>
+
+          <AiOutlineDownCircle
+            onClick={onSlide}
+            size={"30"}
+            style={{ marginBlock: "20px" }}
+          ></AiOutlineDownCircle>
+        </TableWrapper>
+      </div>
+      <div style={{ background: "#A0D7E6", height: "1000px" }}></div>
+    </div>
   );
 }
 

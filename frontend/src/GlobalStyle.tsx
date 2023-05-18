@@ -26,6 +26,9 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
+a {
+	text-decoration: none
+}
 body {
 	line-height: 1;
 }
@@ -43,5 +46,56 @@ q:before, q:after {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
+}
+.beforerefresh {
+	background: white;
+}
+.topbar {
+	height: 50px;
+	background-color: white;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	transition: background-color 0.3s ease-in-out;
+}
+
+.topbar.scrolled {
+	background-color: #212121;
+}
+
+.content {
+	height: 2000px;
+}
+.search-box {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 30px;
+  padding: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.search-box input[type="text"] {
+  border: none;
+  flex: 1;
+  margin-right: 10px;
+  font-size: 16px;
+  color: #333;
+  outline: none;
+}
+
+.search-box button[type="submit"] {
+  border: none;
+  background-color: #f7941e;
+  color: #fff;
+  border-radius: 50%;
+  padding: 10px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.search-box button[type="submit"]:hover {
+  background-color: #e67e22;
 }
 `;

@@ -1,0 +1,22 @@
+{
+  "name": "periodic_table",
+  "version": "1.0.0",
+  "description": "periodic table",
+  "main": " server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wad30905/periodic_table.git"
+  },
+  "author": "hongjin park",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wad30905/periodic_table/issues"
+  },
+  "homepage": "https://github.com/wad30905/periodic_table#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
