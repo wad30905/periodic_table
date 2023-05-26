@@ -10,7 +10,8 @@ import styled from "styled-components";
 import { FiSearch } from "react-icons/fi";
 import Element from "../components/molecules/Element";
 import { AiOutlineDownCircle } from "react-icons/ai";
-
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 export const Column = styled.div`
   display: flex;
   flex-direction: column;
@@ -51,7 +52,6 @@ function Home() {
   const onElementClick = (e: any) => {
     setSearchStr((prev) => prev + e.target.id);
   };
-  console.log(searchStr);
   const onSlide = () => {
     window.scrollTo({
       top: document.getElementById("content")!.offsetHeight,
@@ -61,8 +61,7 @@ function Home() {
 
   return (
     <div id="content" style={{ height: "3000px" }}>
-      <NavBar />
-      <div style={{ marginTop: "80px" }}>
+      <div style={{ marginTop: "100px" }}>
         <TableWrapper>
           <div className="search-box" style={{ width: "80%" }}>
             <input
@@ -71,9 +70,11 @@ function Home() {
               onChange={onInput}
               value={searchStr}
             />
-            <button type="submit">
-              <FiSearch />
-            </button>
+            <Link to="/search" state={searchStr}>
+              <button type="submit">
+                <FiSearch />
+              </button>
+            </Link>
           </div>
           <Table>
             {elementColumns.map((item: elementProps[], index: number) => (

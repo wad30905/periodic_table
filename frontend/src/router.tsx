@@ -2,7 +2,8 @@ import React from "react";
 import { createBrowserRouter } from "react-router-dom";
 import About from "./pages/about";
 import Home from "./pages/home";
-import App from "./Root";
+import Search from "./pages/Search";
+import App from "./App";
 
 export const router = createBrowserRouter([
   {
@@ -14,8 +15,12 @@ export const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/about",
+        path: "about",
         element: <About />,
+      },
+      {
+        path: "search",
+        element: <Search />,
       },
     ],
   },
