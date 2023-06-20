@@ -256,3 +256,26 @@ export const SecondSubTable: elementProps[] = [
 ];
 
 export const SubElementRows = [FirstSubTable, SecondSubTable];
+
+export function darkenHex(hex: string) {
+  // Remove the '#' symbol from the hexadecimal color
+  const factor = 0.9;
+  const color = hex.slice(1);
+
+  // Convert each hexadecimal digit to decimal
+  const r = parseInt(color.slice(0, 2), 16);
+  const g = parseInt(color.slice(2, 4), 16);
+  const b = parseInt(color.slice(4, 6), 16);
+
+  // Calculate the darker decimal values
+  const newR = Math.round(r * factor);
+  const newG = Math.round(g * factor);
+  const newB = Math.round(b * factor);
+
+  // Convert the decimal values back to hexadecimal
+  const darkerColor = `#${newR.toString(16)}${newG.toString(16)}${newB.toString(
+    16
+  )}`;
+
+  return darkerColor;
+}

@@ -111,6 +111,21 @@ function Home() {
         </TableWrapper>
       </div>
       <div style={{ background: "#A0D7E6", height: "1000px" }}></div>
+      <button
+        onClick={async (e: any) => {
+          const response = await axios.post("/api/material/add");
+        }}
+      >
+        add
+      </button>
+      <button
+        onClick={async (e: any) => {
+          const response = await axios.get("/api/material/count");
+          console.log(response);
+        }}
+      >
+        count
+      </button>
     </div>
   );
 }

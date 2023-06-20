@@ -384,4 +384,27 @@ const registerMaterials = asyncHandler(async (req, res) => {
   });
 });
 
-module.exports = { allMaterials, registerMaterial, registerMaterials };
+// Material.countDocuments({}, (err, count) => {
+//   if (err) {
+//     console.error(err);
+//   } else {
+//     console.log('Number of documents:', count);
+//   }
+// });
+
+const countMaterials = asyncHandler(async (req, res) => {
+  try {
+    const rowCount = await Material.countDocuments();
+    console.log(rowCount);
+    res.send({ rowCount: rowCount });
+  } catch (error) {
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+module.exports = {
+  allMaterials,
+  registerMaterial,
+  registerMaterials,
+  countMaterials,
+};
