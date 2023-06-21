@@ -11,12 +11,365 @@ const allMaterials = asyncHandler(async (req, res) => {
   // Build the query object
   const query = searchKeyword ? { name: searchKeyword } : {};
 
+  // async function getInfo() {
+  //   const info = {};
+  //   try {
+  //     Material.aggregate([
+  //       {
+  //         $match: query,
+  //       },
+  //       {
+  //         $group: {
+  //           _id: null,
+  //           minValue: {
+  //             $min: {
+  //               $convert: {
+  //                 input: "$d31",
+  //                 to: "double",
+  //                 onError: 0,
+  //                 onNull: 0,
+  //               },
+  //             },
+  //           },
+  //         },
+  //       },
+  //     ])
+  //       .exec()
+  //       .then((result) => {
+  //         if (result.length > 0) {
+  //           info.minD31 = result[0].minValue;
+  //         } else {
+  //           console.log("No documents found.");
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         console.error(error);
+  //       });
+
+  //     // max d31
+  //     Material.aggregate([
+  //       {
+  //         $match: query,
+  //       },
+  //       {
+  //         $group: {
+  //           _id: null,
+  //           maxValue: {
+  //             $max: {
+  //               $convert: {
+  //                 input: "$d31",
+  //                 to: "double",
+  //                 onError: 0,
+  //                 onNull: 0,
+  //               },
+  //             },
+  //           },
+  //         },
+  //       },
+  //     ])
+  //       .exec()
+  //       .then((result) => {
+  //         if (result.length > 0) {
+  //           info.maxD31 = result[0].maxValue;
+  //         } else {
+  //           console.log("No documents found.");
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         console.error(error);
+  //       });
+
+  //     //minimum d11
+  //     Material.aggregate([
+  //       {
+  //         $match: query,
+  //       },
+  //       {
+  //         $group: {
+  //           _id: null,
+  //           minValue: {
+  //             $min: {
+  //               $convert: {
+  //                 input: "$d11",
+  //                 to: "double",
+  //                 onError: 0,
+  //                 onNull: 0,
+  //               },
+  //             },
+  //           },
+  //         },
+  //       },
+  //     ])
+  //       .exec()
+  //       .then((result) => {
+  //         if (result.length > 0) {
+  //           info.minD11 = result[0].minValue;
+  //         } else {
+  //           console.log("No documents found.");
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         console.error(error);
+  //       });
+
+  //     // max d11
+  //     Material.aggregate([
+  //       {
+  //         $match: query,
+  //       },
+  //       {
+  //         $group: {
+  //           _id: null,
+  //           maxValue: {
+  //             $max: {
+  //               $convert: {
+  //                 input: "$d11",
+  //                 to: "double",
+  //                 onError: 0,
+  //                 onNull: 0,
+  //               },
+  //             },
+  //           },
+  //         },
+  //       },
+  //     ])
+  //       .exec()
+  //       .then((result) => {
+  //         if (result.length > 0) {
+  //           info.maxD11 = result[0].maxValue;
+  //         } else {
+  //           console.log("No documents found.");
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         console.error(error);
+  //       });
+
+  //     // min synthesis Index
+  //     Material.aggregate([
+  //       {
+  //         $match: query,
+  //       },
+  //       {
+  //         $group: {
+  //           _id: null,
+  //           minValue: {
+  //             $min: {
+  //               $convert: {
+  //                 input: "$synthesis_index",
+  //                 to: "double",
+  //                 onError: 0,
+  //                 onNull: 0,
+  //               },
+  //             },
+  //           },
+  //         },
+  //       },
+  //     ])
+  //       .exec()
+  //       .then((result) => {
+  //         if (result.length > 0) {
+  //           info.minSynIndex = result[0].minValue;
+  //         } else {
+  //           console.log("No documents found.");
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         console.error(error);
+  //       });
+
+  //     // max syn index
+  //     Material.aggregate([
+  //       {
+  //         $match: query,
+  //       },
+  //       {
+  //         $group: {
+  //           _id: null,
+  //           maxValue: {
+  //             $max: {
+  //               $convert: {
+  //                 input: "$synthesis_index",
+  //                 to: "double",
+  //                 onError: 0,
+  //                 onNull: 0,
+  //               },
+  //             },
+  //           },
+  //         },
+  //       },
+  //     ])
+  //       .exec()
+  //       .then((result) => {
+  //         if (result.length > 0) {
+  //           info.maxSynIndex = result[0].maxValue;
+  //         } else {
+  //           console.log("No documents found.");
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         console.error(error);
+  //       });
+  //     // min band gap
+  //     Material.aggregate([
+  //       {
+  //         $match: query,
+  //       },
+  //       {
+  //         $group: {
+  //           _id: null,
+  //           minValue: {
+  //             $min: {
+  //               $convert: {
+  //                 input: "$Eg_pbe",
+  //                 to: "double",
+  //                 onError: 0,
+  //                 onNull: 0,
+  //               },
+  //             },
+  //           },
+  //         },
+  //       },
+  //     ])
+  //       .exec()
+  //       .then((result) => {
+  //         if (result.length > 0) {
+  //           info.minBandGap = result[0].minValue;
+  //         } else {
+  //           console.log("No documents found.");
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         console.error(error);
+  //       });
+  //     // max band gap
+  //     Material.aggregate([
+  //       {
+  //         $match: query,
+  //       },
+  //       {
+  //         $group: {
+  //           _id: null,
+  //           maxValue: {
+  //             $max: {
+  //               $convert: {
+  //                 input: "$Eg_pbe",
+  //                 to: "double",
+  //                 onError: 0,
+  //                 onNull: 0,
+  //               },
+  //             },
+  //           },
+  //         },
+  //       },
+  //     ])
+  //       .exec()
+  //       .then((result) => {
+  //         if (result.length > 0) {
+  //           info.maxBandGap = result[0].maxValue;
+  //           console.log("asdfasdfasdfasdfasdfasdfasdfasdf", info);
+  //         } else {
+  //           console.log("No documents found.");
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         console.error(error);
+  //       });
+  //     console.log("fucking", info);
+
+  //     return info;
+  //   } catch {}
+  // }
+
+  async function getMinMaxValue(columnName, minOrMax) {
+    const pipeline = [
+      {
+        $match: query,
+      },
+      {
+        $group: {
+          _id: null,
+          value: {
+            [`$${minOrMax}`]: {
+              $convert: {
+                input: `$${columnName}`,
+                to: "double",
+                onError: 0,
+                onNull: 0,
+              },
+            },
+          },
+        },
+      },
+    ];
+
+    const result = await Material.aggregate(pipeline).exec();
+    if (result.length > 0) {
+      return result[0].value;
+    } else {
+      console.log(`No documents found for ${columnName} ${minOrMax}.`);
+      return null;
+    }
+  }
+
+  async function getInfo() {
+    const info = {};
+
+    try {
+      const promises = [
+        getMinMaxValue("d31", "min"),
+        getMinMaxValue("d31", "max"),
+        getMinMaxValue("d11", "min"),
+        getMinMaxValue("d11", "max"),
+        getMinMaxValue("synthesis_index", "min"),
+        getMinMaxValue("synthesis_index", "max"),
+        getMinMaxValue("Eg_pbe", "min"),
+        getMinMaxValue("Eg_pbe", "max"),
+      ];
+
+      const [
+        minD31,
+        maxD31,
+        minD11,
+        maxD11,
+        minSynIndex,
+        maxSynIndex,
+        minBandGap,
+        maxBandGap,
+      ] = await Promise.all(promises);
+
+      info.minD31 = minD31;
+      info.maxD31 = maxD31;
+      info.minD11 = minD11;
+      info.maxD11 = maxD11;
+      info.minSynIndex = minSynIndex;
+      info.maxSynIndex = maxSynIndex;
+      info.minBandGap = minBandGap;
+      info.maxBandGap = maxBandGap;
+
+      console.log("info:", info);
+      return info;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+  // // send
+
   try {
     const materials = await Material.find(query);
+    const info = await getInfo();
+    materials.push(info);
+    console.log(
+      "asdf;laksjdf;lasjdf;lasdjf;lasdjfasdfklasdfj;asdlkfj;asdf",
+      materials
+    );
+
     res.send(materials);
   } catch (error) {
     console.error(error);
     // Handle the error
+
     res.status(500).send("Internal Server Error");
   }
 });

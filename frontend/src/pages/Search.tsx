@@ -2,8 +2,10 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import { Link, useLocation } from "react-router-dom";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { BASE_URL } from "../api";
+import { synBoundState } from "../assets/atom";
 import SideBar from "../components/molecules/SideBar";
 export const TableWrapper = styled.div`
   display: flex;
@@ -27,6 +29,16 @@ const Hr = styled.hr`
 const resultWrapper = styled.div`
   border: 1px solidb;
 `;
+export interface infoProps {
+  minSynIndex: string;
+  maxSynIndex: string;
+  minBandGap: string;
+  maxBandGap: string;
+  minD11: string;
+  maxD11: string;
+  minD31: string;
+  maxD31: string;
+}
 export interface Material {
   _id: string;
   Phase: string;
@@ -86,29 +98,35 @@ export interface Material {
 function Search() {
   const [searchStr, setSearchStr] = useState<string>("");
   const [result, setResult] = useState<Material[]>();
+  const [showResult, setShowResult] = useState<Material[]>();
+  const [info, setInfo] = useState<infoProps>();
+  const [synBound, setSynBound] = useRecoilState(synBoundState);
   const { state } = useLocation();
-  const [synthesisIndexMin, setSynthesisIndexMin] = useState(0);
-  const [synthesisIndexMax, setSynthesisIndexMax] = useState(0);
-  const [bandGapMin, setBandGapMin] = useState(0);
-  const [bandGapMax, setBandGapMax] = useState(0);
-  const [d11Min, setD11Min] = useState(0);
-  const [d11Max, setD11Max] = useState(0);
-  const [d31Min, setD31Min] = useState(0);
-  const [d31Max, setD31Max] = useState(0);
 
   const fetchResult = async (searchStr: string) => {
     try {
       const { data } = await axios.get(
         `${BASE_URL}/api/material?search=${searchStr}`
       );
-      setResult(data);
+      setResult(data.slice(0, -1));
+      setShowResult(data.slice(0, -1));
+      setInfo(data[data.length - 1]);
+      setSynBound([
+        data[data.length - 1].minSynIndex,
+        data[data.length - 1].maxSynIndex,
+        data[data.length - 1].minBandGap,
+        data[data.length - 1].maxBandGap,
+        data[data.length - 1].minD11,
+        data[data.length - 1].maxD11,
+        data[data.length - 1].minD31,
+        data[data.length - 1].maxD31,
+      ]);
     } catch (error) {}
   };
-  console.log(state);
+
   useEffect(() => {
     fetchResult(state);
   }, []);
-  console.log(result);
 
   const onInput = (e: any) => {
     setSearchStr(e.target.value);
@@ -116,6 +134,28 @@ function Search() {
   const onElementClick = (e: any) => {
     setSearchStr((prev) => prev + e.target.id);
   };
+
+  // bound 필터를 변경시
+  useEffect(() => {
+    if (!synBound) return;
+    if (!result) return;
+    setShowResult(
+      result?.filter(
+        (material: Material) =>
+          parseFloat(material.synthesis_index) >= synBound[0] &&
+          parseFloat(material.synthesis_index) <= synBound[1] &&
+          parseFloat(material.Eg_pbe) >= synBound[2] &&
+          parseFloat(material.Eg_pbe) <= synBound[3] &&
+          parseFloat(material.d11) >= synBound[4] &&
+          parseFloat(material.d11) <= synBound[5] &&
+          parseFloat(material.d31) >= synBound[6] &&
+          parseFloat(material.d31) <= synBound[7]
+      )
+    );
+  }, [synBound]);
+  console.log("synboudn", synBound);
+  console.log("result", result?.length);
+  console.log("showResult", showResult?.length);
   return (
     <div style={{ height: "3000px" }}>
       <div style={{ marginTop: "100px" }}>
@@ -136,19 +176,11 @@ function Search() {
           <Hr />
         </TableWrapper>
         <SearchWrapper>
-          <SideBar
-            setSynthesisIndexMax={setSynthesisIndexMax}
-            setSynthesisIndexMin={setSynthesisIndexMin}
-            setBandGapMax={setBandGapMax}
-            setBandGapMin={setBandGapMin}
-            setD11Max={setD11Max}
-            setD11Min={setD11Min}
-            setD31Max={setD31Max}
-            setD31Min={setD31Min}
-          />
+          <SideBar {...info!} />
 
           <table className="cool-table">
             <thead>
+              <h1>{showResult?.length}</h1>
               <tr>
                 <th>Formula</th>
                 <th>Phase</th>
@@ -163,10 +195,10 @@ function Search() {
               </tr>
             </thead>
             <tbody>
-              {result
-                ? result.map((item, index) => {
+              {showResult
+                ? showResult.map((item, index) => {
                     return (
-                      <tr>
+                      <tr key={index}>
                         <td>{item.name}</td>
                         <td>{item.Phase}</td>
                         <td>{item.space_group}</td>
