@@ -2,8 +2,8 @@ const express = require("express");
 const {
   registerMaterial,
   allMaterials,
-  registerMaterials,
   countMaterials,
+  idMaterial,
 } = require("../controllers/materialController");
 const Material = require("../models/materialModel");
 const csvtojson = require("csvtojson");
@@ -12,11 +12,12 @@ const router = express.Router();
 router.route("/").get(allMaterials);
 router.route("/").post(registerMaterial);
 router.route("/list").post(registerMaterial);
+router.route("/id").get(idMaterial);
 
 // csv register
 router.post("/add", async (req, res) => {
   csvtojson()
-    .fromFile("backend/total_T_prime_combine_for_database.csv")
+    .fromFile("backend/real_H.csv")
     .then((csvData) => {
       console.log(csvData);
       Material.insertMany(csvData)

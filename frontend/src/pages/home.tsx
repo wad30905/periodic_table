@@ -58,24 +58,29 @@ function Home() {
       behavior: "smooth",
     });
   };
+  const navigate = useNavigate();
 
   return (
     <div id="content" style={{ height: "3000px" }}>
       <div style={{ marginTop: "100px" }}>
         <TableWrapper>
-          <div className="search-box" style={{ width: "80%" }}>
+          <form
+            className="search-box"
+            onSubmit={(e: any) => {
+              navigate(`/search/${searchStr}`);
+            }}
+          >
             <input
+              style={{ width: "100%" }}
               type="text"
               placeholder="Search..."
               onChange={onInput}
               value={searchStr}
             />
-            <Link to="/search" state={searchStr}>
-              <button type="submit">
-                <FiSearch />
-              </button>
-            </Link>
-          </div>
+            <button type="submit">
+              <FiSearch />
+            </button>
+          </form>
           <Table>
             {elementColumns.map((item: elementProps[], index: number) => (
               <Column key={index}>

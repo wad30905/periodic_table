@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-export const synBoundState = atom({
-  key: "synBound",
+export const BoundState = atom({
+  key: "Bound",
   default: [] as any,
 });

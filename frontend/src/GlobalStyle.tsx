@@ -27,7 +27,8 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 a {
-	text-decoration: none
+	text-decoration: none;
+	color: inherit;
 }
 body {
 	line-height: 1;
@@ -67,6 +68,7 @@ table {
 	height: 2000px;
 }
 .search-box {
+	width: 80%;
   display: flex;
   align-items: center;
   background-color: #fff;
@@ -104,14 +106,11 @@ table {
 }
 
 th, td {
+	height: 20px;
 	padding: 8px;
-	text-align: left;
+	text-align: center;
 	border-bottom: 1px solid #ddd;
-}
-
-th {
-	background-color: #4CAF50;
-	color: white;
+	vertical-align: middle;
 }
 
 tr:hover {
@@ -120,22 +119,28 @@ tr:hover {
 
 /* Cool design */
 .cool-table {
+	width: 100%;
 	border-radius: 10px;
 	overflow: hidden;
-	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+	box-shadow: 3px 10px 10px rgba(0, 0, 0, 0.2);
 }
+
+.katex { font-size: 2em; }
 
 .cool-table th {
 	background-color: #333;
-	color: white;
+	color: #29B1DA;
+	font-size: 18px;
 	font-weight: bold;
-	text-transform: uppercase;
-	font-size: 14px;
 	letter-spacing: 1px;
+	font-family: 'Abel', sans-serif;
+
 }
 
 .cool-table td {
 	background-color: #f9f9f9;
+	font-size: 18px;
+	font-family: 'Abel', sans-serif;
 }
 
 /* Sidebar styles */
@@ -145,6 +150,7 @@ tr:hover {
 	padding: 20px;
 	border-radius: 10px;
 	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+	
 }
 
 .sidebar h1 {
@@ -173,35 +179,23 @@ tr:hover {
 	margin-right: 5px;
 }
 
-// 여기서 부
-.slider-container {
-  width: 100%;
-}
 
 .range-slider {
   position: relative;
   height: 8px;
-  background-color: #ddd;
+  background-color: #fff;
+	opacity: 0.9;
   margin-bottom: 10px;
-}
-
-.slider-thumb {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 8px;
-  height: 16px;
-  background-color: yellow;
-  border-radius: 4px;
-  z-index: 1;
+	border-radius: 20px;
+  box-shadow: 2px 2px 6px rgba(0,0,0,0);
 }
 
 .slider-range {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  height: 2px;
-  background-color: #333;
+  height: 70%;
+  background-color: #aaa;
 }
 
 .input-container {
@@ -210,10 +204,54 @@ tr:hover {
 }
 
 .slider-input {
-  width: 100px;
+	width: 100%;
+	height: 100%;
   border: 1px solid #888;
   padding: 4px;
   text-align: center;
+	border-radius: 3px;
+}
+.slider-form {
+  width: 30%;
+	height: 10px;
+}
+col.width1 {
+	width: 20px;
 }
 
+col.width2 {
+	width: 20px;
+}
+
+col.width3 {
+	width: 20px;
+}
+col.width4 {
+	width: 20px;
+}
+
+col.width5 {
+	width: 20px;
+}
+
+col.width6 {
+	width: 20px;
+}
+col.width7 {
+	width: 20px;
+}
+
+col.width8 {
+	width: 10px;
+}
+
+col.width9 {
+	width: 10px;
+}
+col.width9 {
+	width: 10px;
+}
+col.width10 {
+	width: 1px;
+}
 `;

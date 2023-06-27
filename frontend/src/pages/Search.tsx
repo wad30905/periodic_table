@@ -1,12 +1,14 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { FiSearch } from "react-icons/fi";
-import { Link, useLocation } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { BASE_URL } from "../api";
-import { synBoundState } from "../assets/atom";
+import { BoundState } from "../assets/atom";
+import SearchBox from "../components/molecules/searchbox";
 import SideBar from "../components/molecules/SideBar";
+
 export const TableWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -28,6 +30,19 @@ const Hr = styled.hr`
 
 const resultWrapper = styled.div`
   border: 1px solidb;
+`;
+const H1 = styled.h1`
+  font-family: "Merriweather", serif;
+  color: #29b1da;
+  font-size: 30px;
+`;
+
+const Sub = styled.sub`
+  font-size: 1px;
+  font-weight: bold;
+`;
+const Th = styled.th`
+  font-size: 10px;
 `;
 export interface infoProps {
   minSynIndex: string;
@@ -51,7 +66,7 @@ export interface Material {
   latt_y: string;
   latt_z: string;
   angle_x: string;
-  anlge_y: string;
+  angle_y: string;
   angle_z: string;
   space_group: string;
   total_energy: string;
@@ -96,12 +111,12 @@ export interface Material {
   __v: string;
 }
 function Search() {
-  const [searchStr, setSearchStr] = useState<string>("");
   const [result, setResult] = useState<Material[]>();
   const [showResult, setShowResult] = useState<Material[]>();
   const [info, setInfo] = useState<infoProps>();
-  const [synBound, setSynBound] = useRecoilState(synBoundState);
-  const { state } = useLocation();
+  const [Bound, setBound] = useRecoilState(BoundState);
+  const { searchstr } = useParams();
+  const navigate = useNavigate();
 
   const fetchResult = async (searchStr: string) => {
     try {
@@ -111,7 +126,7 @@ function Search() {
       setResult(data.slice(0, -1));
       setShowResult(data.slice(0, -1));
       setInfo(data[data.length - 1]);
-      setSynBound([
+      setBound([
         data[data.length - 1].minSynIndex,
         data[data.length - 1].maxSynIndex,
         data[data.length - 1].minBandGap,
@@ -125,96 +140,113 @@ function Search() {
   };
 
   useEffect(() => {
-    fetchResult(state);
+    fetchResult(searchstr ? searchstr : "");
   }, []);
-
-  const onInput = (e: any) => {
-    setSearchStr(e.target.value);
-  };
-  const onElementClick = (e: any) => {
-    setSearchStr((prev) => prev + e.target.id);
-  };
 
   // bound 필터를 변경시
   useEffect(() => {
-    if (!synBound) return;
+    if (!Bound) return;
     if (!result) return;
     setShowResult(
       result?.filter(
         (material: Material) =>
-          parseFloat(material.synthesis_index) >= synBound[0] &&
-          parseFloat(material.synthesis_index) <= synBound[1] &&
-          parseFloat(material.Eg_pbe) >= synBound[2] &&
-          parseFloat(material.Eg_pbe) <= synBound[3] &&
-          parseFloat(material.d11) >= synBound[4] &&
-          parseFloat(material.d11) <= synBound[5] &&
-          parseFloat(material.d31) >= synBound[6] &&
-          parseFloat(material.d31) <= synBound[7]
+          parseFloat(material.synthesis_index) >= Bound[0] &&
+          parseFloat(material.synthesis_index) <= Bound[1] &&
+          parseFloat(material.Eg_pbe) >= Bound[2] &&
+          parseFloat(material.Eg_pbe) <= Bound[3] &&
+          ((parseFloat(material.d11) >= Bound[4] &&
+            parseFloat(material.d11) <= Bound[5] &&
+            parseFloat(material.d31) >= Bound[6] &&
+            parseFloat(material.d31) <= Bound[7]) ||
+            (material.d11 == "" && material.d31 == ""))
       )
     );
-  }, [synBound]);
-  console.log("synboudn", synBound);
-  console.log("result", result?.length);
-  console.log("showResult", showResult?.length);
+  }, [Bound]);
   return (
     <div style={{ height: "3000px" }}>
       <div style={{ marginTop: "100px" }}>
         <TableWrapper>
-          <div className="search-box" style={{ width: "80%" }}>
-            <input
-              type="text"
-              placeholder="Search..."
-              onChange={onInput}
-              value={searchStr}
-            />
-            <Link to="/search" state={""}>
-              <button type="submit">
-                <FiSearch />
-              </button>
-            </Link>
-          </div>
+          <SearchBox />
           <Hr />
         </TableWrapper>
         <SearchWrapper>
           <SideBar {...info!} />
+          <div style={{ width: "80%", marginInline: "20px" }}>
+            <div style={{ height: "70px" }}>
+              <H1>
+                {showResult?.length != 0
+                  ? `There Is Total of ${showResult?.length} Materials.`
+                  : `No Materials Found.`}
+              </H1>
+            </div>
+            <table className="cool-table">
+              <colgroup>
+                <col className="width1" />
+                <col className="width2" />
+                <col className="width3" />
 
-          <table className="cool-table">
-            <thead>
-              <h1>{showResult?.length}</h1>
-              <tr>
-                <th>Formula</th>
-                <th>Phase</th>
-                <th>Space Group</th>
-                <th>Formation Energy</th>
-                <th>Synthesis Index</th>
-                <th>Eg_PBE</th>
-                <th>d11</th>
-                <th>d22</th>
-                <th>d31</th>
-                <th>d32</th>
-              </tr>
-            </thead>
-            <tbody>
-              {showResult
-                ? showResult.map((item, index) => {
-                    return (
-                      <tr key={index}>
-                        <td>{item.name}</td>
-                        <td>{item.Phase}</td>
-                        <td>{item.space_group}</td>
-                        <td>{item.energy_form}</td>
-                        <td>{item.synthesis_index}</td>
-                        <td>{item.Eg_pbe}</td>
-                        <td>{item.d11}</td>
-                        <td>{item.d22}</td>
-                        <td>{item.d31}</td>
-                        <td>{item.d32}</td>
-                      </tr>
-                    );
-                  })
-                : null}
-            </tbody>
-          </table>
+                <col className="width4" />
+                <col className="width5" />
+
+                <col className="width6" />
+                <col className="width7" />
+
+                <col className="width8" />
+                <col className="width9" />
+                <col className="width10" />
+              </colgroup>
+              <thead>
+                <tr>
+                  <Th>Formula</Th>
+                  <Th>Phase</Th>
+                  <Th>Space Group</Th>
+                  <Th>Formation Energy</Th>
+                  <Th>Synthesis Index</Th>
+                  <Th>Eg(GGA)[eV]</Th>
+                  <Th>
+                    <var>
+                      d<Sub>11</Sub>
+                    </var>
+                  </Th>
+                  <Th>
+                    d<Sub>22</Sub>
+                  </Th>
+                  <Th>
+                    d<Sub>31</Sub>
+                  </Th>
+                  <Th>
+                    d<Sub>32</Sub>
+                  </Th>
+                </tr>
+              </thead>
+              <tbody>
+                {showResult
+                  ? showResult.map((item, index) => {
+                      return (
+                        <tr
+                          key={index}
+                          onClick={(e: any) => {
+                            navigate(`/materials/${item._id}`);
+                          }}
+                        >
+                          <td>{item.name}</td>
+                          <td>{item.Phase}</td>
+                          <td>{item.space_group}</td>
+                          <td>{item.energy_form}</td>
+                          <td>{item.synthesis_index}</td>
+                          <td>{item.Eg_pbe}</td>
+                          <td>{item.d11 ? item.d11 : "-"}</td>
+                          <td>{item.d22 ? item.d22 : "-"}</td>
+
+                          <td>{item.d31 ? item.d31 : "-"}</td>
+                          <td>{item.d32 ? item.d32 : "-"}</td>
+                        </tr>
+                      );
+                    })
+                  : null}
+              </tbody>
+            </table>
+          </div>
         </SearchWrapper>
       </div>
     </div>

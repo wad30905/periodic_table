@@ -9,9 +9,6 @@ export interface elementComponentProps {
   onclick: any;
 }
 
-export interface ElementWrapperProps {
-  color: string;
-}
 export const NullWrapper = styled.div`
   width: 3vw;
   height: 3vw;
@@ -27,6 +24,10 @@ export const H3 = styled.h1`
   margin-left: 3px;
 `;
 
+export interface ElementWrapperProps {
+  color: string;
+}
+
 export const ElementWrapper = styled.div<ElementWrapperProps>`
   width: 3vw;
   height: 3vw;
@@ -38,6 +39,11 @@ export const ElementWrapper = styled.div<ElementWrapperProps>`
   margin: 2px;
   border-radius: 5px;
   transition: 0.1s ease-in-out;
+  &:hover {
+    cursor: pointer;
+    position: absolute;
+    transform: scale(1.5);
+  }
 `;
 
 export const ModalOverlay = styled.div`
@@ -78,34 +84,37 @@ function Element({
   console.log(isHovered);
   if (name != "") {
     return (
-      <ElementWrapper
-        color={elementClasses[elementClassName]}
-        onClick={onclick}
-        id={name}
-        onMouseOver={onHoverIn}
-        onMouseOut={onHoverOut}
-      >
-        <div
-          style={{
-            width: "100%",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-around",
-            alignItems: "center",
-          }}
+      <>
+        {isHovered ? <NullWrapper /> : null}
+        <ElementWrapper
+          color={elementClasses[elementClassName]}
+          onClick={onclick}
+          id={name}
+          onMouseOver={onHoverIn}
+          onMouseOut={onHoverOut}
         >
           <div
             style={{
-              display: "flex",
-              justifyContent: "start",
               width: "100%",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-around",
+              alignItems: "center",
             }}
           >
-            <H3 id={name}>{number}</H3>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "start",
+                width: "100%",
+              }}
+            >
+              <H3 id={name}>{number}</H3>
+            </div>
+            <H1 id={name}>{name}</H1>
           </div>
-          <H1 id={name}>{name}</H1>
-        </div>
-      </ElementWrapper>
+        </ElementWrapper>
+      </>
     );
   } else {
     return <NullWrapper />;
