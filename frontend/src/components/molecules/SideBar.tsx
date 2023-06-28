@@ -13,7 +13,7 @@ const Wrapper = styled.div`
   padding: 20px;
   margin: 10px;
   width: 200px;
-  height: 600px;
+  height: 500px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -68,18 +68,18 @@ function SideBar({
       <Filter
         minBound={minD11}
         maxBound={maxD11}
-        filterName={"d11"}
+        filterName={"| d11 |"}
         BoundIndex={2}
       />
       <Filter
         minBound={minD31}
         maxBound={maxD31}
-        filterName={"d31"}
+        filterName={"| d31 |"}
         BoundIndex={3}
       />
       {/* radioes */}
       <H3>Phase</H3>
-      <div>
+      <div style={{ display: "flex", justifyContent: "space-around" }}>
         <label>
           <input
             type="checkbox"
@@ -90,7 +90,6 @@ function SideBar({
           />
           T
         </label>
-        <br />
         <label>
           <input
             type="checkbox"
@@ -101,7 +100,6 @@ function SideBar({
           />
           T'
         </label>
-        <br />
         <label>
           <input
             type="checkbox"

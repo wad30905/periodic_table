@@ -4,7 +4,7 @@ import small_black_logo from "/Users/hongjinpark/Desktop/mtg/periodic_table/fron
 import styled from "styled-components";
 import { FiSearch } from "react-icons/fi";
 import { BiHome } from "react-icons/bi";
-
+import { CgProfile } from "react-icons/cg";
 export const Img = styled.img`
   width: 60px;
   height: 60px;
@@ -76,12 +76,15 @@ function NavBar() {
         style={{
           display: "flex",
           justifyContent: "space-around",
-          width: "10%",
+          width: "13%",
           marginRight: "30px",
         }}
       >
         <a href="/search" style={{ display: "block" }}>
           <FiSearch color={scrolled ? "white" : "black"} size={45} />
+        </a>
+        <a href="/about" style={{ display: "block" }}>
+          <CgProfile color={scrolled ? "white" : "black"} size={45} />
         </a>
         <a href="/" style={{ display: "block" }}>
           <BiHome color={scrolled ? "white" : "black"} size={45} />

@@ -17,7 +17,7 @@ router.route("/id").get(idMaterial);
 // csv register
 router.post("/add", async (req, res) => {
   csvtojson()
-    .fromFile("backend/real_H.csv")
+    .fromFile("backend/H.csv")
     .then((csvData) => {
       console.log(csvData);
       Material.insertMany(csvData)

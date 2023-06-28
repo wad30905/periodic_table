@@ -10,8 +10,8 @@ export interface elementComponentProps {
 }
 
 export const NullWrapper = styled.div`
-  width: 3vw;
-  height: 3vw;
+  width: 4vw;
+  height: 4vw;
   margin: 2px;
 `;
 export const H1 = styled.h1`
@@ -29,8 +29,8 @@ export interface ElementWrapperProps {
 }
 
 export const ElementWrapper = styled.div<ElementWrapperProps>`
-  width: 3vw;
-  height: 3vw;
+  width: 4vw;
+  height: 4vw;
   background: ${(props) => props.color};
   color: white;
   display: flex;

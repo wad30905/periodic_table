@@ -7,11 +7,10 @@ import Latex from "react-latex";
 import axios from "axios";
 import { BASE_URL } from "../api";
 import { Material } from "./Search";
-import Spinner from "../components/molecules/Spinner";
 
 const Wrapper = styled.div`
   padding-top: 100px;
-  height: 2800px;
+  height: 2500px;
   background: #eee;
 `;
 const H3 = styled.h1`
@@ -24,12 +23,13 @@ const Navigator = styled.div`
   left: 10px;
   top: 100px;
   width: 350px;
-  height: 700px;
+  height: 600px;
   background: #ddd;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   border-radius: 10px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
 `;
 const Img = styled.img`
   width: 150px;
@@ -98,6 +98,7 @@ const Div = styled.div`
   justify-content: space-around;
   align-items: center;
   padding-bottom: 30px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
 `;
 const Li1 = styled.li`
   background: white;
@@ -268,11 +269,6 @@ function MaterialPage() {
               </li>
             </div>
             <li>
-              <A smooth to={"#contributed data"}>
-                Contributed Data
-              </A>
-            </li>
-            <li>
               <A smooth to={"#literature references"}>
                 Literature References
               </A>
@@ -428,14 +424,11 @@ function MaterialPage() {
               <PropertyH2>direct</PropertyH2>
 
               <div>
-                <Latex>{`$$\\begin{bmatrix}d_{11} & d_{12} & d_{13} \\\\ d_{21} & d_{22} & d_{23} \\\\ d_{31} & d_{32} & d_{33} \\end{bmatrix} = \\begin{bmatrix} ${result?.d11} & - & -\\\\ - & ${result?.d22} & - \\\\ ${result?.d31} & ${result?.d32} & -\\end{bmatrix}$$`}</Latex>
+                <Latex>{`$$\\begin{bmatrix} | d_{11} | & | d_{12} | & | d_{13} | \\\\ | d_{21} | & | d_{22} | & | d_{23} | \\\\ | d_{31} | & | d_{32} | & | d_{33} | \\end{bmatrix} = \\begin{bmatrix} ${result?.d11} & - & -\\\\ - & ${result?.d22} & - \\\\ ${result?.d31} & ${result?.d32} & -\\end{bmatrix}$$`}</Latex>
               </div>
             </MatrixWrapper>
           </PiezoWrapper>
-          <Section id="contributed data" />
-          <PropertiesWrapper>
-            <PropertyH1>Contributed Data</PropertyH1>
-          </PropertiesWrapper>
+
           <Section id="literature references" />
           <PropertiesWrapper>
             <PropertyH1>Literature References</PropertyH1>
