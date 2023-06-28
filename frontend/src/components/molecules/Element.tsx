@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { darkenHex, elementClasses } from "../../assets/SampleData";
+import { elementClasses } from "../../assets/SampleData";
 
 export interface elementComponentProps {
   number: number | string;
@@ -39,9 +39,13 @@ export const ElementWrapper = styled.div<ElementWrapperProps>`
   margin: 2px;
   border-radius: 5px;
   transition: 0.1s ease-in-out;
+  position: absolute;
+  left: 0;
+  top: 0px;
+  z-index: 80;
   &:hover {
+    z-index: 100;
     cursor: pointer;
-    position: absolute;
     transform: scale(1.5);
   }
 `;
@@ -55,16 +59,6 @@ export const ModalOverlay = styled.div`
   height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
-`;
-const ModalContent = styled.div`
-  z-index: 20000000;
-  background: white;
-  width: 40vw;
-  height: 70vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
   align-items: center;
 `;
 function Element({
@@ -82,10 +76,10 @@ function Element({
     setIsHovered(false);
   };
   console.log(isHovered);
-  if (name != "") {
+  if (name !== "") {
     return (
-      <>
-        {isHovered ? <NullWrapper /> : null}
+      <div style={{ position: "relative" }}>
+        <NullWrapper />
         <ElementWrapper
           color={elementClasses[elementClassName]}
           onClick={onclick}
@@ -114,7 +108,7 @@ function Element({
             <H1 id={name}>{name}</H1>
           </div>
         </ElementWrapper>
-      </>
+      </div>
     );
   } else {
     return <NullWrapper />;

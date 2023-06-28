@@ -4,7 +4,8 @@
   "description": "periodic table",
   "main": " server.js",
   "scripts": {
-    "start": "nodemon backend/server.js"
+    "start": "nodemon backend/server.js",
+    "build": "webpack --config webpack.config.js"
   },
   "repository": {
     "type": "git",
@@ -29,5 +30,9 @@
     "mongoose": "^7.1.1",
     "nodemon": "^2.0.22",
     "recoil": "^0.7.7"
+  },
+  "devDependencies": {
+    "webpack": "^5.88.0",
+    "webpack-cli": "^5.1.4"
   }
 }

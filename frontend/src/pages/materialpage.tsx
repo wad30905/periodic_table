@@ -7,6 +7,7 @@ import Latex from "react-latex";
 import axios from "axios";
 import { BASE_URL } from "../api";
 import { Material } from "./Search";
+import Spinner from "../components/molecules/Spinner";
 
 const Wrapper = styled.div`
   padding-top: 100px;
@@ -163,15 +164,13 @@ const PropertyH2 = styled.h1`
   font-size: 20px;
   font-family: "Merriweather", serif;
 `;
-const Sub = styled.sub`
-  font-size: 1px;
-  font-weight: bold;
-`;
 const Th = styled.th`
   font-size: 10px;
 `;
 
 function MaterialPage() {
+  const [isLoading, setIsLoading] = useState(true);
+
   const { materialId } = useParams();
   const [result, setResult] = useState<Material>();
   const fetchResult = async (target: string) => {
@@ -185,248 +184,272 @@ function MaterialPage() {
   useEffect(() => {
     try {
       fetchResult(materialId!);
+      setIsLoading(false);
     } catch (err) {
       console.log(err);
     }
+  }, [materialId]);
+  // when go back window.location.reload();
+  useEffect(() => {
+    const handlePopState = () => {
+      // Perform actions when navigating back
+      window.location.reload();
+    };
+
+    window.addEventListener("popstate", handlePopState);
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
   }, []);
 
-  return (
-    <Wrapper>
-      <Navigator>
-        <div
-          style={{
-            width: "100%",
-            height: "100px",
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-            marginBlock: "30px",
-          }}
-        >
-          <Img src={ScOBr}></Img>
+  if (!isLoading) {
+    return (
+      <Wrapper>
+        <Navigator>
           <div
             style={{
-              margin: "20px",
+              width: "100%",
+              height: "100px",
               display: "flex",
-              flexDirection: "column",
+              flexDirection: "row",
               justifyContent: "center",
               alignItems: "center",
+              marginBlock: "30px",
             }}
           >
-            <H3>{result?.name}</H3>
+            <Img src={ScOBr}></Img>
+            <div
+              style={{
+                margin: "20px",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <H3>{result?.name}</H3>
+            </div>
           </div>
+          <Ul>
+            <li>
+              <A smooth to={"#overview"}>
+                Overview
+              </A>
+            </li>
+            <li>
+              <A smooth to={"#crystal structure"}>
+                Crystal Structure
+              </A>
+            </li>
+            <li>
+              <A smooth to={"#properties"}>
+                Properties
+              </A>
+            </li>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "start",
+                width: "80%",
+                marginLeft: "60px",
+              }}
+            >
+              <li>
+                <A1 smooth to={"#elastic constants"}>
+                  Elastic Constants
+                </A1>
+              </li>
+              <li>
+                <A1 smooth to={"#piezoelectric constants"}>
+                  Piezoelectric Constant
+                </A1>
+              </li>
+            </div>
+            <li>
+              <A smooth to={"#contributed data"}>
+                Contributed Data
+              </A>
+            </li>
+            <li>
+              <A smooth to={"#literature references"}>
+                Literature References
+              </A>
+            </li>
+          </Ul>
+        </Navigator>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-around",
+            marginLeft: "400px",
+          }}
+        >
+          <Section id="crystal structure"></Section>
+          <HtmlWrapper>
+            <PropertyH1>Crystal Structure</PropertyH1>
+            <HtmlImg src={ScOBr}></HtmlImg>
+          </HtmlWrapper>
+          <Section id="properties"></Section>
+          <Section id="overview" />
+
+          <Div>
+            <ul
+              style={{
+                width: "90%",
+                height: "60%",
+                display: "flex",
+                flexDirection: "column",
+                marginTop: "30px",
+                alignItems: "center",
+              }}
+            >
+              <PropertyH1 style={{ marginBottom: "20px" }}>
+                Properties
+              </PropertyH1>
+              <Li1>
+                <div>
+                  <H1>Formula</H1>
+                </div>
+                <div>
+                  <H2>{result?.name}</H2>
+                </div>
+              </Li1>
+              <Li1>
+                <div>
+                  <H1>Phase</H1>
+                </div>
+                <div>
+                  <H2>{result?.Phase}</H2>
+                </div>
+              </Li1>
+              <Li1>
+                <div>
+                  <H1>Space Group</H1>
+                </div>
+                <div>
+                  <H2>{result?.space_group}</H2>
+                </div>
+              </Li1>
+              <Li1>
+                <div>
+                  <H1>Formation Energy</H1>
+                </div>
+                <div>
+                  <H2>{result?.energy_form}</H2>
+                </div>
+              </Li1>
+              <Li1>
+                <div>
+                  <H1>Band Gap</H1>
+                </div>
+                <div>
+                  <H2>{result?.Eg_pbe}</H2>
+                </div>
+              </Li1>
+              <Li1>
+                <div>
+                  <H1>Synthesis Index</H1>
+                </div>
+                <div>
+                  <H2>{result?.synthesis_index}</H2>
+                </div>
+              </Li1>
+            </ul>
+            <PropertyH1>Lattice Constants</PropertyH1>
+            {/* a,b,c, */}
+            <table className="cool-table">
+              <colgroup>
+                <col className="width1" />
+                <col className="width2" />
+                <col className="width3" />
+              </colgroup>
+              <thead>
+                <tr>
+                  <Th>a</Th>
+                  <Th>b</Th>
+                  <Th>c</Th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{result?.latt_x}</td>
+                  <td>{result?.latt_y}</td>
+                  <td>{result?.latt_z}</td>
+                </tr>
+              </tbody>
+            </table>
+            {/* gamma */}
+
+            <table className="cool-table">
+              <colgroup>
+                <col className="width1" />
+                <col className="width2" />
+                <col className="width3" />
+              </colgroup>
+              <thead>
+                <tr>
+                  <Th>&alpha;</Th>
+                  <Th>&beta;</Th>
+                  <Th>&gamma;</Th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{result?.angle_x}</td>
+                  <td>{result?.angle_y}</td>
+                  <td>{result?.angle_z}</td>
+                </tr>
+              </tbody>
+            </table>
+          </Div>
         </div>
-        <Ul>
-          <li>
-            <A smooth to={"#overview"}>
-              Overview
-            </A>
-          </li>
-          <li>
-            <A smooth to={"#crystal structure"}>
-              Crystal Structure
-            </A>
-          </li>
-          <li>
-            <A smooth to={"#properties"}>
-              Properties
-            </A>
-          </li>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "start",
-              width: "80%",
-              marginLeft: "60px",
-            }}
-          >
-            <li>
-              <A1 smooth to={"#elastic constants"}>
-                Elastic Constants
-              </A1>
-            </li>
-            <li>
-              <A1 smooth to={"#piezoelectric constants"}>
-                Piezoelectric Constant
-              </A1>
-            </li>
-          </div>
-          <li>
-            <A smooth to={"#contributed data"}>
-              Contributed Data
-            </A>
-          </li>
-          <li>
-            <A smooth to={"#literature references"}>
-              Literature References
-            </A>
-          </li>
-        </Ul>
-      </Navigator>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-around",
-          marginLeft: "400px",
-        }}
-      >
-        <Section id="crystal structure"></Section>
-        <HtmlWrapper>
-          <PropertyH1>Crystal Structure</PropertyH1>
-          <HtmlImg src={ScOBr}></HtmlImg>
-        </HtmlWrapper>
-        <Section id="properties"></Section>
-        <Section id="overview" />
+        <div style={{ width: "40%", marginLeft: "400px", marginTop: "100px" }}>
+          <Section id="elastic constants" />
+          <PropertiesWrapper>
+            <MatrixWrapper>
+              <PropertyH1>Elastic Constants</PropertyH1>
+              <div>
+                <Latex>{`$$\\begin{bmatrix}C_{11} & C_{12} & C_{13} \\\\ C_{21} & C_{22} & C_{23} \\\\ C_{31} & C_{32} & C_{33} \\end{bmatrix} = \\begin{bmatrix} ${result?.C11} & ${result?.C12} & -\\\\ ${result?.C21} & ${result?.C22} & - \\\\ - & - & -\\end{bmatrix}$$`}</Latex>
+              </div>
+            </MatrixWrapper>
+          </PropertiesWrapper>
+          <Section id="piezoelectric constants" />
+          <PiezoWrapper>
+            <MatrixWrapper>
+              <PropertyH1>Piezoelectric Constant</PropertyH1>
 
-        <Div>
-          <ul
-            style={{
-              width: "90%",
-              height: "60%",
-              display: "flex",
-              flexDirection: "column",
-              marginTop: "30px",
-              alignItems: "center",
-            }}
-          >
-            <PropertyH1 style={{ marginBottom: "20px" }}>Properties</PropertyH1>
-            <Li1>
-              <div>
-                <H1>Formula</H1>
-              </div>
-              <div>
-                <H2>{result?.name}</H2>
-              </div>
-            </Li1>
-            <Li1>
-              <div>
-                <H1>Phase</H1>
-              </div>
-              <div>
-                <H2>{result?.Phase}</H2>
-              </div>
-            </Li1>
-            <Li1>
-              <div>
-                <H1>Space Group</H1>
-              </div>
-              <div>
-                <H2>{result?.space_group}</H2>
-              </div>
-            </Li1>
-            <Li1>
-              <div>
-                <H1>Formation Energy</H1>
-              </div>
-              <div>
-                <H2>{result?.energy_form}</H2>
-              </div>
-            </Li1>
-            <Li1>
-              <div>
-                <H1>Band Gap</H1>
-              </div>
-              <div>
-                <H2>{result?.Eg_pbe}</H2>
-              </div>
-            </Li1>
-            <Li1>
-              <div>
-                <H1>Synthesis Index</H1>
-              </div>
-              <div>
-                <H2>{result?.synthesis_index}</H2>
-              </div>
-            </Li1>
-          </ul>
-          <PropertyH1>Lattice Constants</PropertyH1>
-          {/* a,b,c, */}
-          <table className="cool-table">
-            <colgroup>
-              <col className="width1" />
-              <col className="width2" />
-              <col className="width3" />
-            </colgroup>
-            <thead>
-              <tr>
-                <Th>a</Th>
-                <Th>b</Th>
-                <Th>c</Th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{result?.latt_x}</td>
-                <td>{result?.latt_y}</td>
-                <td>{result?.latt_z}</td>
-              </tr>
-            </tbody>
-          </table>
-          {/* gamma */}
+              <PropertyH2>converse</PropertyH2>
 
-          <table className="cool-table">
-            <colgroup>
-              <col className="width1" />
-              <col className="width2" />
-              <col className="width3" />
-            </colgroup>
-            <thead>
-              <tr>
-                <Th>&alpha;</Th>
-                <Th>&beta;</Th>
-                <Th>&gamma;</Th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{result?.angle_x}</td>
-                <td>{result?.angle_y}</td>
-                <td>{result?.angle_z}</td>
-              </tr>
-            </tbody>
-          </table>
-        </Div>
+              <div>
+                <Latex>{`$$\\begin{bmatrix}e_{11} & e_{12} & e_{13} \\\\ e_{21} & e_{22} & e_{23} \\\\ e_{31} & e_{32} & e_{33} \\end{bmatrix} = \\begin{bmatrix} ${result?.e11} & - & -\\\\ - & ${result?.e22} & - \\\\ ${result?.e31} & ${result?.e32} & -\\end{bmatrix}$$`}</Latex>
+              </div>
+              <PropertyH2>direct</PropertyH2>
+
+              <div>
+                <Latex>{`$$\\begin{bmatrix}d_{11} & d_{12} & d_{13} \\\\ d_{21} & d_{22} & d_{23} \\\\ d_{31} & d_{32} & d_{33} \\end{bmatrix} = \\begin{bmatrix} ${result?.d11} & - & -\\\\ - & ${result?.d22} & - \\\\ ${result?.d31} & ${result?.d32} & -\\end{bmatrix}$$`}</Latex>
+              </div>
+            </MatrixWrapper>
+          </PiezoWrapper>
+          <Section id="contributed data" />
+          <PropertiesWrapper>
+            <PropertyH1>Contributed Data</PropertyH1>
+          </PropertiesWrapper>
+          <Section id="literature references" />
+          <PropertiesWrapper>
+            <PropertyH1>Literature References</PropertyH1>
+          </PropertiesWrapper>
+        </div>
+      </Wrapper>
+    );
+  } else {
+    return (
+      <div className="spinner-container1">
+        <div className="loading-spinner"></div>
       </div>
-      <div style={{ width: "40%", marginLeft: "400px", marginTop: "100px" }}>
-        <Section id="elastic constants" />
-        <PropertiesWrapper>
-          <MatrixWrapper>
-            <PropertyH1>Elastic Constants</PropertyH1>
-            <div>
-              <Latex>{`$$\\begin{bmatrix}C_{11} & C_{12} & C_{13} \\\\ C_{21} & C_{22} & C_{23} \\\\ C_{31} & C_{32} & C_{33} \\end{bmatrix} = \\begin{bmatrix} ${result?.C11} & ${result?.C12} & -\\\\ ${result?.C21} & ${result?.C22} & - \\\\ - & - & -\\end{bmatrix}$$`}</Latex>
-            </div>
-          </MatrixWrapper>
-        </PropertiesWrapper>
-        <Section id="piezoelectric constants" />
-        <PiezoWrapper>
-          <MatrixWrapper>
-            <PropertyH1>Piezoelectric Constant</PropertyH1>
-
-            <PropertyH2>converse</PropertyH2>
-
-            <div>
-              <Latex>{`$$\\begin{bmatrix}e_{11} & e_{12} & e_{13} \\\\ e_{21} & e_{22} & e_{23} \\\\ e_{31} & e_{32} & e_{33} \\end{bmatrix} = \\begin{bmatrix} ${result?.e11} & - & -\\\\ - & ${result?.e22} & - \\\\ ${result?.e31} & ${result?.e32} & -\\end{bmatrix}$$`}</Latex>
-            </div>
-            <PropertyH2>direct</PropertyH2>
-
-            <div>
-              <Latex>{`$$\\begin{bmatrix}d_{11} & d_{12} & d_{13} \\\\ d_{21} & d_{22} & d_{23} \\\\ d_{31} & d_{32} & d_{33} \\end{bmatrix} = \\begin{bmatrix} ${result?.d11} & - & -\\\\ - & ${result?.d22} & - \\\\ ${result?.d31} & ${result?.d32} & -\\end{bmatrix}$$`}</Latex>
-            </div>
-          </MatrixWrapper>
-        </PiezoWrapper>
-        <Section id="contributed data" />
-        <PropertiesWrapper>
-          <PropertyH1>Contributed Data</PropertyH1>
-        </PropertiesWrapper>
-        <Section id="literature references" />
-        <PropertiesWrapper>
-          <PropertyH1>Literature References</PropertyH1>
-        </PropertiesWrapper>
-      </div>
-    </Wrapper>
-  );
+    );
+  }
 }
 
 export default MaterialPage;

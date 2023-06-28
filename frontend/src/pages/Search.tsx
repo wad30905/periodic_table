@@ -1,13 +1,13 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { FiSearch } from "react-icons/fi";
 import { useNavigate, useParams } from "react-router-dom";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { BASE_URL } from "../api";
-import { BoundState } from "../assets/atom";
+import { BoundState, PhaseState } from "../assets/atom";
 import SearchBox from "../components/molecules/searchbox";
 import SideBar from "../components/molecules/SideBar";
+import Spinner from "../components/molecules/Spinner";
 
 export const TableWrapper = styled.div`
   display: flex;
@@ -28,9 +28,6 @@ const Hr = styled.hr`
   width: 100%;
 `;
 
-const resultWrapper = styled.div`
-  border: 1px solidb;
-`;
 const H1 = styled.h1`
   font-family: "Merriweather", serif;
   color: #29b1da;
@@ -117,6 +114,8 @@ function Search() {
   const [Bound, setBound] = useRecoilState(BoundState);
   const { searchstr } = useParams();
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
+  const PhaseArr = useRecoilValue(PhaseState);
 
   const fetchResult = async (searchStr: string) => {
     try {
@@ -136,6 +135,7 @@ function Search() {
         data[data.length - 1].minD31,
         data[data.length - 1].maxD31,
       ]);
+      setIsLoading(false);
     } catch (error) {}
   };
 
@@ -158,10 +158,12 @@ function Search() {
             parseFloat(material.d11) <= Bound[5] &&
             parseFloat(material.d31) >= Bound[6] &&
             parseFloat(material.d31) <= Bound[7]) ||
-            (material.d11 == "" && material.d31 == ""))
+            (material.d11 === "" && material.d31 === "")) &&
+          PhaseArr.includes(material.Phase)
       )
     );
-  }, [Bound]);
+  }, [Bound, PhaseArr]);
+
   return (
     <div style={{ height: "3000px" }}>
       <div style={{ marginTop: "100px" }}>
@@ -174,78 +176,77 @@ function Search() {
           <div style={{ width: "80%", marginInline: "20px" }}>
             <div style={{ height: "70px" }}>
               <H1>
-                {showResult?.length != 0
+                {!isLoading
                   ? `There Is Total of ${showResult?.length} Materials.`
-                  : `No Materials Found.`}
+                  : `Loading...`}
               </H1>
             </div>
-            <table className="cool-table">
-              <colgroup>
-                <col className="width1" />
-                <col className="width2" />
-                <col className="width3" />
-
-                <col className="width4" />
-                <col className="width5" />
-
-                <col className="width6" />
-                <col className="width7" />
-
-                <col className="width8" />
-                <col className="width9" />
-                <col className="width10" />
-              </colgroup>
-              <thead>
-                <tr>
-                  <Th>Formula</Th>
-                  <Th>Phase</Th>
-                  <Th>Space Group</Th>
-                  <Th>Formation Energy</Th>
-                  <Th>Synthesis Index</Th>
-                  <Th>Eg(GGA)[eV]</Th>
-                  <Th>
-                    <var>
+            {!isLoading ? (
+              <table className="cool-table">
+                <colgroup>
+                  <col className="width1" />
+                  <col className="width2" />
+                  <col className="width3" />
+                  <col className="width4" />
+                  <col className="width5" />
+                  <col className="width6" />
+                  <col className="width7" />
+                  <col className="width8" />
+                  <col className="width9" />
+                  <col className="width10" />
+                </colgroup>
+                <thead>
+                  <tr>
+                    <Th>Formula</Th>
+                    <Th>Phase</Th>
+                    <Th>Space Group</Th>
+                    <Th>Formation Energy</Th>
+                    <Th>Synthesis Index</Th>
+                    <Th>Eg(GGA)[eV]</Th>
+                    <Th>
                       d<Sub>11</Sub>
-                    </var>
-                  </Th>
-                  <Th>
-                    d<Sub>22</Sub>
-                  </Th>
-                  <Th>
-                    d<Sub>31</Sub>
-                  </Th>
-                  <Th>
-                    d<Sub>32</Sub>
-                  </Th>
-                </tr>
-              </thead>
-              <tbody>
-                {showResult
-                  ? showResult.map((item, index) => {
-                      return (
-                        <tr
-                          key={index}
-                          onClick={(e: any) => {
-                            navigate(`/materials/${item._id}`);
-                          }}
-                        >
-                          <td>{item.name}</td>
-                          <td>{item.Phase}</td>
-                          <td>{item.space_group}</td>
-                          <td>{item.energy_form}</td>
-                          <td>{item.synthesis_index}</td>
-                          <td>{item.Eg_pbe}</td>
-                          <td>{item.d11 ? item.d11 : "-"}</td>
-                          <td>{item.d22 ? item.d22 : "-"}</td>
-
-                          <td>{item.d31 ? item.d31 : "-"}</td>
-                          <td>{item.d32 ? item.d32 : "-"}</td>
-                        </tr>
-                      );
-                    })
-                  : null}
-              </tbody>
-            </table>
+                    </Th>
+                    <Th>
+                      d<Sub>22</Sub>
+                    </Th>
+                    <Th>
+                      d<Sub>31</Sub>
+                    </Th>
+                    <Th>
+                      d<Sub>32</Sub>
+                    </Th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {showResult
+                    ? showResult.map((item, index) => {
+                        return (
+                          <tr
+                            key={index}
+                            onClick={(e: any) => {
+                              navigate(`/materials/${item._id}`);
+                              window.location.reload();
+                            }}
+                          >
+                            <td>{item.name}</td>
+                            <td>{item.Phase}</td>
+                            <td>{item.space_group}</td>
+                            <td>{item.energy_form}</td>
+                            <td>{item.synthesis_index}</td>
+                            <td>{item.Eg_pbe}</td>
+                            <td>{item.d11 ? item.d11 : "-"}</td>
+                            <td>{item.d22 ? item.d22 : "-"}</td>
+                            <td>{item.d31 ? item.d31 : "-"}</td>
+                            <td>{item.d32 ? item.d32 : "-"}</td>
+                          </tr>
+                        );
+                      })
+                    : null}
+                </tbody>
+              </table>
+            ) : (
+              <Spinner />
+            )}
           </div>
         </SearchWrapper>
       </div>

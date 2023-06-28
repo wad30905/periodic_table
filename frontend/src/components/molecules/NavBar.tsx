@@ -56,8 +56,8 @@ function NavBar() {
   return (
     <Nav ref={topBarRef} className="topbar">
       <div>
-        <Link
-          to={"/"}
+        <a
+          href={"/"}
           style={{
             display: "flex",
             alignItems: "center",
@@ -70,7 +70,7 @@ function NavBar() {
           ) : (
             <H1_Black>MATERIALS THEORY GROUP</H1_Black>
           )}
-        </Link>
+        </a>
       </div>
       <div
         style={{
@@ -80,12 +80,12 @@ function NavBar() {
           marginRight: "30px",
         }}
       >
-        <Link to="/search" style={{ display: "block" }}>
+        <a href="/search" style={{ display: "block" }}>
           <FiSearch color={scrolled ? "white" : "black"} size={45} />
-        </Link>
-        <Link to="/" style={{ display: "block" }}>
+        </a>
+        <a href="/" style={{ display: "block" }}>
           <BiHome color={scrolled ? "white" : "black"} size={45} />
-        </Link>
+        </a>
       </div>
     </Nav>
   );

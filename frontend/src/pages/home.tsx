@@ -1,17 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   elementColumns,
   elementProps,
-  FirstColumn,
   SubElementRows,
 } from "../assets/SampleData";
-import NavBar from "../components/molecules/NavBar";
 import styled from "styled-components";
 import { FiSearch } from "react-icons/fi";
 import Element from "../components/molecules/Element";
 import { AiOutlineDownCircle } from "react-icons/ai";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 export const Column = styled.div`
   display: flex;
   flex-direction: column;

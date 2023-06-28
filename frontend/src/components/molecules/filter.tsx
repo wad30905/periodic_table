@@ -186,7 +186,7 @@ function Filter({ minBound, maxBound, filterName, BoundIndex }: filterProps) {
             handlethumbmousedown(event, "min");
           }}
         >
-          {lastThumb == "min" ? <SelectedThumb /> : null}
+          {lastThumb === "min" ? <SelectedThumb /> : null}
         </ThumbWrapper>
         <ThumbWrapper
           style={{
@@ -202,7 +202,7 @@ function Filter({ minBound, maxBound, filterName, BoundIndex }: filterProps) {
             handlethumbmousedown(event, "max");
           }}
         >
-          {lastThumb == "max" ? <SelectedThumb /> : null}
+          {lastThumb === "max" ? <SelectedThumb /> : null}
         </ThumbWrapper>
         <div
           className="slider-range"
