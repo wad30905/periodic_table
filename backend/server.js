@@ -11,6 +11,9 @@ connectDB();
 const app = express();
 
 app.use(express.json()); // to accept json data
+app.use(
+  cors({ origin: ["http:localhost:3000", "https://janus-materials.com"] })
+);
 app.use("/api/material", materialRoutes);
 
 //deploy
