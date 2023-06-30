@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { HashLink as Link } from "react-router-hash-link";
 import styled from "styled-components";
-import ScOBr from "../assets/images/ScOBr.png";
 import Latex from "react-latex";
 import axios from "axios";
 import { BASE_URL } from "../api";
@@ -219,7 +218,7 @@ function MaterialPage() {
               marginBlock: "30px",
             }}
           >
-            <Img src={ScOBr}></Img>
+            <Img src={`../assets/H_png/${result?.name}`}></Img>
             <div
               style={{
                 margin: "20px",
@@ -285,7 +284,7 @@ function MaterialPage() {
           <Section id="crystal structure"></Section>
           <HtmlWrapper>
             <PropertyH1>Crystal Structure</PropertyH1>
-            <HtmlImg src={ScOBr}></HtmlImg>
+            <HtmlImg src={`../assets/H_png/${result?.name}`}></HtmlImg>
           </HtmlWrapper>
           <Section id="properties"></Section>
           <Section id="overview" />
