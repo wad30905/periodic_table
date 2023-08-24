@@ -218,7 +218,7 @@ function MaterialPage() {
               marginBlock: "30px",
             }}
           >
-            <Img src={`../assets/H_png/${result?.name}`}></Img>
+            <Img src={`/images/H_pngs/${result?.name}.png`}></Img>
             <div
               style={{
                 margin: "20px",
@@ -284,7 +284,7 @@ function MaterialPage() {
           <Section id="crystal structure"></Section>
           <HtmlWrapper>
             <PropertyH1>Crystal Structure</PropertyH1>
-            <HtmlImg src={`../assets/H_png/${result?.name}`}></HtmlImg>
+            <HtmlImg src={`/images/H_pngs/${result?.name}.png`}></HtmlImg>
           </HtmlWrapper>
           <Section id="properties"></Section>
           <Section id="overview" />

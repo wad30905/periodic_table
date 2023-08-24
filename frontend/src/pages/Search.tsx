@@ -219,7 +219,7 @@ function Search() {
                 </thead>
                 <tbody>
                   {showResult
-                    ? showResult.map((item, index) => {
+                    ? showResult?.map((item, index) => {
                         return (
                           <tr
                             key={index}
