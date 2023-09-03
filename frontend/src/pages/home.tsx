@@ -59,7 +59,7 @@ function Home() {
   const navigate = useNavigate();
 
   return (
-    <div id="content" style={{ height: "3000px" }}>
+    <div id="content" style={{ height: "700px" }}>
       <div style={{ marginTop: "100px" }}>
         <TableWrapper>
           <form
@@ -113,8 +113,8 @@ function Home() {
           ></AiOutlineDownCircle>
         </TableWrapper>
       </div>
-      <div style={{ background: "#A0D7E6", height: "1000px" }}></div>
-      <button
+      {/* <div style={{ background: "#A0D7E6", height: "1000px" }}></div> */}
+      {/* <button
         onClick={async (e: any) => {
           const response = await axios.post("/api/material/add");
         }}
@@ -128,7 +128,7 @@ function Home() {
         }}
       >
         count
-      </button>
+      </button> */}
     </div>
   );
 }

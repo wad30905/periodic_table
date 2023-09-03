@@ -115,7 +115,6 @@ const Li1 = styled.li`
 const H1 = styled.h1`
   font-size: 20px;
   color: black;
-  font-weight: bold;
 `;
 const H2 = styled.h1`
   font-size: 20px;
@@ -202,6 +201,9 @@ function MaterialPage() {
       window.removeEventListener("popstate", handlePopState);
     };
   }, []);
+  console.log("result", result);
+  const band = "$E_g^{GGA} [eV]$";
+  const formation = "${\\Delta}H_f^{GGA} [eV/f.u.]$";
 
   if (!isLoading) {
     return (
@@ -218,7 +220,9 @@ function MaterialPage() {
               marginBlock: "30px",
             }}
           >
-            <Img src={`/images/H_pngs/${result?.name}.png`}></Img>
+            <Img
+              src={`/images/${result?.Phase}_pngs/${result?.name}.png`}
+            ></Img>
             <div
               style={{
                 margin: "20px",
@@ -284,7 +288,9 @@ function MaterialPage() {
           <Section id="crystal structure"></Section>
           <HtmlWrapper>
             <PropertyH1>Crystal Structure</PropertyH1>
-            <HtmlImg src={`/images/H_pngs/${result?.name}.png`}></HtmlImg>
+            <HtmlImg
+              src={`/images/${result?.Phase}_pngs/${result?.name}.png`}
+            ></HtmlImg>
           </HtmlWrapper>
           <Section id="properties"></Section>
           <Section id="overview" />
@@ -329,18 +335,22 @@ function MaterialPage() {
               </Li1>
               <Li1>
                 <div>
-                  <H1>Formation Energy</H1>
+                  <H1 style={{ fontSize: "10px", fontWeight: "bold" }}>
+                    <Latex>{formation}</Latex>
+                  </H1>
                 </div>
                 <div>
-                  <H2>{result?.energy_form}</H2>
+                  <H2>{parseFloat(result?.energy_form!).toFixed(2)}</H2>
                 </div>
               </Li1>
               <Li1>
                 <div>
-                  <H1>Band Gap</H1>
+                  <H1 style={{ fontSize: "10px", fontWeight: "bold" }}>
+                    <Latex>{band}</Latex>
+                  </H1>
                 </div>
                 <div>
-                  <H2>{result?.Eg_pbe}</H2>
+                  <H2>{parseFloat(result?.Eg_pbe!).toFixed(2)}</H2>
                 </div>
               </Li1>
               <Li1>
@@ -348,7 +358,7 @@ function MaterialPage() {
                   <H1>Synthesis Index</H1>
                 </div>
                 <div>
-                  <H2>{result?.synthesis_index}</H2>
+                  <H2>{parseFloat(result?.synthesis_index!).toFixed(2)}</H2>
                 </div>
               </Li1>
             </ul>
@@ -369,9 +379,9 @@ function MaterialPage() {
               </thead>
               <tbody>
                 <tr>
-                  <td>{result?.latt_x}</td>
-                  <td>{result?.latt_y}</td>
-                  <td>{result?.latt_z}</td>
+                  <td>{parseFloat(result?.latt_x!).toFixed(2)}</td>
+                  <td>{parseFloat(result?.latt_y!).toFixed(2)}</td>
+                  <td>{parseFloat(result?.latt_z!).toFixed(2)}</td>
                 </tr>
               </tbody>
             </table>
@@ -392,9 +402,9 @@ function MaterialPage() {
               </thead>
               <tbody>
                 <tr>
-                  <td>{result?.angle_x}</td>
-                  <td>{result?.angle_y}</td>
-                  <td>{result?.angle_z}</td>
+                  <td>{parseFloat(result?.angle_x!).toFixed(2)}</td>
+                  <td>{parseFloat(result?.angle_y!).toFixed(2)}</td>
+                  <td>{parseFloat(result?.angle_z!).toFixed(2)}</td>
                 </tr>
               </tbody>
             </table>

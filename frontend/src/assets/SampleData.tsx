@@ -4,20 +4,20 @@ export interface elementProps {
   elementClassName: string;
 }
 export interface ElementClassesProps {
-  [key: string]: string;
+  [key: string]: string[];
 }
 export const elementClasses: ElementClassesProps = {
-  "Reactive non-metals": "#0655DE",
-  "Alkali metals": "#06EADE",
-  "Alkaline earth metals": "#F5A0BF",
-  "Transition metals": "#9702FF",
-  Lanthanides: "#97C7FF",
-  "Unknown properties": "#333333",
-  Metalloids: "#FFCD4A",
-  "Post-transition metals": "#4ACD96",
-  "Noble gases": "#F60D34",
-  Actinides: "#F6520A",
-  empty: "white",
+  "Reactive non-metals": ["#B0D2E9", "#1477BD"],
+  "Alkali metals": ["#F9B4B7", "#ED1C25"],
+  "Alkaline earth metals": ["#FCDCB5", "#F7941C"],
+  "Transition metals": ["#FFF4B1", "#FFDE14"],
+  Lanthanides: ["#E2F1D9", "#A7D48C"],
+  Metalloids: ["#B7E2F5", "#24AAE1"],
+  "Post-transition metals": ["#BCE4C1", "#3AB54B"],
+  "Noble gases": ["#CDBADB", "#662D91"],
+  Actinides: ["#EFEECC", "CCCC65"],
+  Halogen: ["#CCCDE4", "#6566AE"],
+  empty: ["white"],
 };
 
 export const FirstColumn: elementProps[] = [
@@ -107,7 +107,7 @@ export const NinethColumn: elementProps[] = [
   { name: "Co", number: 27, elementClassName: "Transition metals" },
   { name: "Rh", number: 45, elementClassName: "Transition metals" },
   { name: "Ir", number: 77, elementClassName: "Transition metals" },
-  { name: "Mt", number: 109, elementClassName: "Unknown properties" },
+  { name: "Mt", number: 109, elementClassName: "Transition metals" },
 ];
 
 export const TenthColumn: elementProps[] = [
@@ -117,7 +117,7 @@ export const TenthColumn: elementProps[] = [
   { name: "Ni", number: 28, elementClassName: "Transition metals" },
   { name: "Pd", number: 46, elementClassName: "Transition metals" },
   { name: "Pt", number: 78, elementClassName: "Transition metals" },
-  { name: "Ds", number: 110, elementClassName: "Unknown properties" },
+  { name: "Ds", number: 110, elementClassName: "Transition metals" },
 ];
 
 export const EleventhColumn: elementProps[] = [
@@ -127,7 +127,7 @@ export const EleventhColumn: elementProps[] = [
   { name: "Cu", number: 29, elementClassName: "Transition metals" },
   { name: "Ag", number: 47, elementClassName: "Transition metals" },
   { name: "Au", number: 79, elementClassName: "Transition metals" },
-  { name: "Rg", number: 111, elementClassName: "Unknown properties" },
+  { name: "Rg", number: 111, elementClassName: "Transition metals" },
 ];
 
 export const TwelfthColumn: elementProps[] = [
@@ -137,7 +137,7 @@ export const TwelfthColumn: elementProps[] = [
   { name: "Zn", number: 30, elementClassName: "Transition metals" },
   { name: "Cd", number: 48, elementClassName: "Transition metals" },
   { name: "Hg", number: 80, elementClassName: "Transition metals" },
-  { name: "Cn", number: 112, elementClassName: "Unknown properties" },
+  { name: "Cn", number: 112, elementClassName: "Transition metals" },
 ];
 
 export const ThirteenthColumn: elementProps[] = [
@@ -147,7 +147,7 @@ export const ThirteenthColumn: elementProps[] = [
   { name: "Ga", number: 31, elementClassName: "Post-transition metals" },
   { name: "In", number: 49, elementClassName: "Post-transition metals" },
   { name: "Tl", number: 81, elementClassName: "Post-transition metals" },
-  { name: "Nh", number: 113, elementClassName: "Unknown properties" },
+  { name: "Nh", number: 113, elementClassName: "Post-transition metals" },
 ];
 
 export const FourteenthColumn: elementProps[] = [
@@ -157,7 +157,7 @@ export const FourteenthColumn: elementProps[] = [
   { name: "Ge", number: 32, elementClassName: "Metalloids" },
   { name: "Sn", number: 50, elementClassName: "Post-transition metals" },
   { name: "Pb", number: 82, elementClassName: "Post-transition metals" },
-  { name: "Fl", number: 114, elementClassName: "Unknown properties" },
+  { name: "Fl", number: 114, elementClassName: "Post-transition metals" },
 ];
 
 export const FifteenthColumn: elementProps[] = [
@@ -167,7 +167,7 @@ export const FifteenthColumn: elementProps[] = [
   { name: "As", number: 32, elementClassName: "Metalloids" },
   { name: "Sb", number: 51, elementClassName: "Metalloids" },
   { name: "Bi", number: 83, elementClassName: "Post-transition metals" },
-  { name: "Mc", number: 115, elementClassName: "Unknown properties" },
+  { name: "Mc", number: 115, elementClassName: "Post-transition metals" },
 ];
 
 export const SixteenthColumn: elementProps[] = [
@@ -176,18 +176,18 @@ export const SixteenthColumn: elementProps[] = [
   { name: "S", number: 16, elementClassName: "Reactive non-metals" },
   { name: "Se", number: 33, elementClassName: "Reactive non-metals" },
   { name: "Te", number: 52, elementClassName: "Metalloids" },
-  { name: "Po", number: 84, elementClassName: "Post-transition metals" },
-  { name: "Lv", number: 116, elementClassName: "Unknown properties" },
+  { name: "Po", number: 84, elementClassName: "Metalloids" },
+  { name: "Lv", number: 116, elementClassName: "Post-transition metals" },
 ];
 
 export const SeventeenthColumn: elementProps[] = [
   { name: "", number: "", elementClassName: "empty" },
-  { name: "F", number: 9, elementClassName: "Reactive non-metals" },
-  { name: "Cl", number: 17, elementClassName: "Reactive non-metals" },
-  { name: "Br", number: 34, elementClassName: "Reactive non-metals" },
-  { name: "I", number: 53, elementClassName: "Reactive non-metals" },
-  { name: "At", number: 85, elementClassName: "Post-transition metals" },
-  { name: "Ts", number: 117, elementClassName: "Unknown properties" },
+  { name: "F", number: 9, elementClassName: "Halogen" },
+  { name: "Cl", number: 17, elementClassName: "Halogen" },
+  { name: "Br", number: 34, elementClassName: "Halogen" },
+  { name: "I", number: 53, elementClassName: "Halogen" },
+  { name: "At", number: 85, elementClassName: "Halogen" },
+  { name: "Ts", number: 117, elementClassName: "Halogen" },
 ];
 
 export const EighteenthColumn: elementProps[] = [
@@ -197,7 +197,7 @@ export const EighteenthColumn: elementProps[] = [
   { name: "Kr", number: 35, elementClassName: "Noble gases" },
   { name: "Xe", number: 54, elementClassName: "Noble gases" },
   { name: "Rn", number: 86, elementClassName: "Noble gases" },
-  { name: "Og", number: 118, elementClassName: "Unknown properties" },
+  { name: "Og", number: 118, elementClassName: "Noble gases" },
 ];
 
 export const elementColumns = [

@@ -1,5 +1,7 @@
 import axios from "axios";
+import { format } from "path";
 import React, { useEffect, useState } from "react";
+import Latex from "react-latex";
 import { useNavigate, useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
@@ -164,6 +166,9 @@ function Search() {
     );
   }, [Bound, PhaseArr]);
 
+  const formation = "${\\Delta}H_f^{GGA} \\\\ [eV/f.u.]$";
+  const band = "$E_g^{GGA} \\\\ [eV]$";
+
   return (
     <div style={{ height: "3000px" }}>
       <div style={{ marginTop: "100px" }}>
@@ -200,9 +205,13 @@ function Search() {
                     <Th>Formula</Th>
                     <Th>Phase</Th>
                     <Th>Space Group</Th>
-                    <Th>Formation Energy</Th>
+                    <Th style={{ fontSize: "10px" }}>
+                      <Latex>{formation}</Latex>
+                    </Th>
                     <Th>Synthesis Index</Th>
-                    <Th>Eg(GGA)[eV]</Th>
+                    <Th style={{ fontSize: "10px" }}>
+                      <Latex>{band}</Latex>
+                    </Th>
                     <Th>
                       d<Sub>11</Sub>
                     </Th>
@@ -231,13 +240,23 @@ function Search() {
                             <td>{item.name}</td>
                             <td>{item.Phase}</td>
                             <td>{item.space_group}</td>
-                            <td>{item.energy_form}</td>
-                            <td>{item.synthesis_index}</td>
-                            <td>{item.Eg_pbe}</td>
-                            <td>{item.d11 ? item.d11 : "-"}</td>
-                            <td>{item.d22 ? item.d22 : "-"}</td>
-                            <td>{item.d31 ? item.d31 : "-"}</td>
-                            <td>{item.d32 ? item.d32 : "-"}</td>
+                            <td>{parseFloat(item.energy_form).toFixed(2)}</td>
+                            <td>
+                              {parseFloat(item.synthesis_index).toFixed(2)}
+                            </td>
+                            <td>{parseFloat(item.Eg_pbe).toFixed(2)}</td>
+                            <td>
+                              {item.d11 ? parseFloat(item.d11).toFixed(2) : "-"}
+                            </td>
+                            <td>
+                              {item.d22 ? parseFloat(item.d22).toFixed(2) : "-"}
+                            </td>
+                            <td>
+                              {item.d31 ? parseFloat(item.d31).toFixed(2) : "-"}
+                            </td>
+                            <td>
+                              {item.d32 ? parseFloat(item.d32).toFixed(2) : "-"}
+                            </td>
                           </tr>
                         );
                       })

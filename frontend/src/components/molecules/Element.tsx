@@ -15,28 +15,34 @@ export const NullWrapper = styled.div`
   margin: 2px;
 `;
 export const H1 = styled.h1`
-  font-size: 20px;
+  font-weight: bold;
+  font-size: 32px;
   color: inherit;
 `;
 export const H3 = styled.h1`
-  font-size: 5px;
+  font-size: 14px;
   color: inherit;
-  margin-left: 3px;
+  margin-left: 8px;
+  margin-top: 5px;
 `;
 
 export interface ElementWrapperProps {
   color: string;
+  border: string;
 }
 
 export const ElementWrapper = styled.div<ElementWrapperProps>`
+  box-sizing: border-box;
   width: 4vw;
   height: 4vw;
   background: ${(props) => props.color};
-  color: white;
+  border: 4px solid ${(props) => props.border};
+  color: Black;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 2px;
+  // border: 1px solid ${(props) => props.color}
   border-radius: 5px;
   transition: 0.1s ease-in-out;
   position: absolute;
@@ -81,7 +87,8 @@ function Element({
       <div style={{ position: "relative" }}>
         <NullWrapper />
         <ElementWrapper
-          color={elementClasses[elementClassName]}
+          color={elementClasses[elementClassName][0]}
+          border={elementClasses[elementClassName][1]}
           onClick={onclick}
           id={name}
           onMouseOver={onHoverIn}
