@@ -204,6 +204,7 @@ function MaterialPage() {
   console.log("result", result);
   const band = "$E_g^{GGA} [eV]$";
   const formation = "${\\Delta}H_f^{GGA} [eV/f.u.]$";
+  const syn = "${\\Delta}H_{syn} [eV/f.u.]$";
 
   if (!isLoading) {
     return (
@@ -355,7 +356,9 @@ function MaterialPage() {
               </Li1>
               <Li1>
                 <div>
-                  <H1>Synthesis Index</H1>
+                  <H1 style={{ fontSize: "10px", fontWeight: "bold" }}>
+                    <Latex>{syn}</Latex>
+                  </H1>
                 </div>
                 <div>
                   <H2>{parseFloat(result?.synthesis_index!).toFixed(2)}</H2>

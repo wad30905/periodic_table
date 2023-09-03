@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import Latex from "react-latex";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { BoundState } from "../../assets/atom";
@@ -171,7 +172,9 @@ function Filter({ minBound, maxBound, filterName, BoundIndex }: filterProps) {
   };
   return (
     <FilterWrapper onMouseMove={handleMouseMove}>
-      <H3>{filterName}</H3>
+      <H3 style={{ fontSize: "10px" }}>
+        <Latex>{filterName}</Latex>
+      </H3>
       <div className="range-slider" ref={sliderRef} onClick={onSliderClick}>
         <ThumbWrapper
           style={{

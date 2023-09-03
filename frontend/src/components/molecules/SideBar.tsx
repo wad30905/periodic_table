@@ -49,6 +49,9 @@ function SideBar({
     }
   };
   console.log(selectedOptions);
+  const band = "$E_g^{GGA} [eV]$";
+  const syn = "${\\Delta}H_{syn} [eV/f.u.]$";
+
   return (
     <Wrapper className="sidebar">
       <H3># Options</H3>
@@ -56,25 +59,25 @@ function SideBar({
       <Filter
         minBound={minSynIndex}
         maxBound={maxSynIndex}
-        filterName={"Synthesis Index"}
+        filterName={syn}
         BoundIndex={0}
       />
       <Filter
         minBound={minBandGap}
         maxBound={maxBandGap}
-        filterName={"Band Gap"}
+        filterName={band}
         BoundIndex={1}
       />
       <Filter
         minBound={minD11}
         maxBound={maxD11}
-        filterName={"| d11 |"}
+        filterName={"$| d11 |$"}
         BoundIndex={2}
       />
       <Filter
         minBound={minD31}
         maxBound={maxD31}
-        filterName={"| d31 |"}
+        filterName={"$| d31 |$"}
         BoundIndex={3}
       />
       {/* radioes */}

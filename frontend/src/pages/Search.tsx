@@ -167,6 +167,7 @@ function Search() {
   }, [Bound, PhaseArr]);
 
   const formation = "${\\Delta}H_f^{GGA} \\\\ [eV/f.u.]$";
+  const syn = "${\\Delta}H_{syn} \\\\ [eV/f.u.]$";
   const band = "$E_g^{GGA} \\\\ [eV]$";
 
   return (
@@ -208,7 +209,9 @@ function Search() {
                     <Th style={{ fontSize: "10px" }}>
                       <Latex>{formation}</Latex>
                     </Th>
-                    <Th>Synthesis Index</Th>
+                    <Th style={{ fontSize: "10px" }}>
+                      <Latex>{syn}</Latex>
+                    </Th>
                     <Th style={{ fontSize: "10px" }}>
                       <Latex>{band}</Latex>
                     </Th>
