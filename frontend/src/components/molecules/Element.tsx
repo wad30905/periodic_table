@@ -16,11 +16,12 @@ export const NullWrapper = styled.div`
 `;
 export const H1 = styled.h1`
   font-weight: bold;
-  font-size: 32px;
+  font-size: 1.7vw;
   color: inherit;
+  display: block;
 `;
 export const H3 = styled.h1`
-  font-size: 14px;
+  font-size: 1vw;
   color: inherit;
   margin-left: 8px;
   margin-top: 5px;

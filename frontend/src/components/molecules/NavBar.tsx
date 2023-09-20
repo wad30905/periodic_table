@@ -1,13 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
-import small_black_logo from "/Users/hongjinpark/Desktop/mtg/periodic_table/frontend/src/assets/images/small_black_logo.png";
 import styled from "styled-components";
 import { FiSearch } from "react-icons/fi";
-import { BiHome } from "react-icons/bi";
 import { CgProfile } from "react-icons/cg";
 export const Img = styled.img`
   width: 60px;
   height: 60px;
+`;
+
+export const H1_logo = styled.h1`
+  margin-left: 10px;
+  font-family: "Merriweather", serif;
+  color: #29b1da;
+  font-size: 40px;
 `;
 export const Nav = styled.div`
   position: sticky;
@@ -53,6 +57,8 @@ function NavBar() {
     });
   }, []);
   console.log("scrolled", scrolled);
+  const logo = "$$ \\textsc{Hallo} $$";
+
   return (
     <Nav ref={topBarRef} className="topbar">
       <div>
@@ -64,19 +70,14 @@ function NavBar() {
             justifyContent: "space-between",
           }}
         >
-          <Img src={small_black_logo} />
-          {scrolled ? (
-            <H1_White>MATERIALS THEORY GROUP</H1_White>
-          ) : (
-            <H1_Black>MATERIALS THEORY GROUP</H1_Black>
-          )}
+          {scrolled ? <H1_logo>JanusNet</H1_logo> : <H1_logo>JanusNet</H1_logo>}
         </a>
       </div>
       <div
         style={{
           display: "flex",
           justifyContent: "space-around",
-          width: "13%",
+          width: "8%",
           marginRight: "30px",
         }}
       >
@@ -85,9 +86,6 @@ function NavBar() {
         </a>
         <a href="/about" style={{ display: "block" }}>
           <CgProfile color={scrolled ? "white" : "black"} size={45} />
-        </a>
-        <a href="/" style={{ display: "block" }}>
-          <BiHome color={scrolled ? "white" : "black"} size={45} />
         </a>
       </div>
     </Nav>

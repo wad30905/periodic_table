@@ -5,36 +5,44 @@ import styled from "styled-components";
 import Latex from "react-latex";
 import axios from "axios";
 import { BASE_URL } from "../api";
-import { Material } from "./Search";
+import { H1_unified, H1_unified_black, Material } from "./Search";
+import { CgEnter } from "react-icons/cg";
 
 const Wrapper = styled.div`
   padding-top: 100px;
   height: 2500px;
   background: #eee;
+  display: flex;
+  justify-content: space-between;
 `;
 const H3 = styled.h1`
-  font-size: 50px;
+  font-size: 40px;
   font-weigth: bold;
   font-family: "Merriweather", serif;
 `;
 const Navigator = styled.div`
-  position: fixed;
-  left: 10px;
-  top: 100px;
   width: 350px;
-  height: 600px;
+  min-height: 100vh; /* Minimum height to cover the viewport height */
   background: #ddd;
+  flex-shrink: 0; /* Prevent the left column from shrinking */
+  position: fixed;
+  top: 100px;
+  left: 10px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  border-radius: 10px;
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
 `;
+
 const Img = styled.img`
   width: 150px;
   height: 150px;
   background: white;
   display: block;
+  border-radius: 10px;
+  margin-left: 20px;
+  margin-top: 20px;
 `;
 const HtmlImg = styled.img`
   width: 90%;
@@ -43,6 +51,7 @@ const HtmlImg = styled.img`
   display: block;
 `;
 const Ul = styled.ul`
+  margin-bottom: 200px;
   width: 80%;
   height: 400px;
   display: flex;
@@ -56,6 +65,7 @@ const Ul = styled.ul`
 `;
 const A = styled(Link)`
   font-size: 30px;
+  font-family: "Merriweather", serif;
   color: #999;
   &:hover {
     color: #ffa933;
@@ -64,6 +74,8 @@ const A = styled(Link)`
 const A1 = styled(Link)`
   font-size: 20px;
   color: #999;
+  font-family: "Merriweather", serif;
+
   &:hover {
     color: #ffa933;
   }
@@ -212,13 +224,7 @@ function MaterialPage() {
         <Navigator>
           <div
             style={{
-              width: "100%",
-              height: "100px",
               display: "flex",
-              flexDirection: "row",
-              justifyContent: "center",
-              alignItems: "center",
-              marginBlock: "30px",
             }}
           >
             <Img
@@ -272,18 +278,15 @@ function MaterialPage() {
                 </A1>
               </li>
             </div>
-            <li>
-              <A smooth to={"#literature references"}>
-                Literature References
-              </A>
-            </li>
           </Ul>
         </Navigator>
         <div
           style={{
             display: "flex",
+            flexDirection: "column",
             justifyContent: "space-around",
-            marginLeft: "400px",
+            marginLeft: "25%",
+            alignItems: "center",
           }}
         >
           <Section id="crystal structure"></Section>
@@ -295,125 +298,6 @@ function MaterialPage() {
           </HtmlWrapper>
           <Section id="properties"></Section>
           <Section id="overview" />
-
-          <Div>
-            <ul
-              style={{
-                width: "90%",
-                height: "60%",
-                display: "flex",
-                flexDirection: "column",
-                marginTop: "30px",
-                alignItems: "center",
-              }}
-            >
-              <PropertyH1 style={{ marginBottom: "20px" }}>
-                Properties
-              </PropertyH1>
-              <Li1>
-                <div>
-                  <H1>Formula</H1>
-                </div>
-                <div>
-                  <H2>{result?.name}</H2>
-                </div>
-              </Li1>
-              <Li1>
-                <div>
-                  <H1>Phase</H1>
-                </div>
-                <div>
-                  <H2>{result?.Phase}</H2>
-                </div>
-              </Li1>
-              <Li1>
-                <div>
-                  <H1>Space Group</H1>
-                </div>
-                <div>
-                  <H2>{result?.space_group}</H2>
-                </div>
-              </Li1>
-              <Li1>
-                <div>
-                  <H1 style={{ fontSize: "10px", fontWeight: "bold" }}>
-                    <Latex>{formation}</Latex>
-                  </H1>
-                </div>
-                <div>
-                  <H2>{parseFloat(result?.energy_form!).toFixed(2)}</H2>
-                </div>
-              </Li1>
-              <Li1>
-                <div>
-                  <H1 style={{ fontSize: "10px", fontWeight: "bold" }}>
-                    <Latex>{band}</Latex>
-                  </H1>
-                </div>
-                <div>
-                  <H2>{parseFloat(result?.Eg_pbe!).toFixed(2)}</H2>
-                </div>
-              </Li1>
-              <Li1>
-                <div>
-                  <H1 style={{ fontSize: "10px", fontWeight: "bold" }}>
-                    <Latex>{syn}</Latex>
-                  </H1>
-                </div>
-                <div>
-                  <H2>{parseFloat(result?.synthesis_index!).toFixed(2)}</H2>
-                </div>
-              </Li1>
-            </ul>
-            <PropertyH1>Lattice Constants</PropertyH1>
-            {/* a,b,c, */}
-            <table className="cool-table">
-              <colgroup>
-                <col className="width1" />
-                <col className="width2" />
-                <col className="width3" />
-              </colgroup>
-              <thead>
-                <tr>
-                  <Th>a</Th>
-                  <Th>b</Th>
-                  <Th>c</Th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>{parseFloat(result?.latt_x!).toFixed(2)}</td>
-                  <td>{parseFloat(result?.latt_y!).toFixed(2)}</td>
-                  <td>{parseFloat(result?.latt_z!).toFixed(2)}</td>
-                </tr>
-              </tbody>
-            </table>
-            {/* gamma */}
-
-            <table className="cool-table">
-              <colgroup>
-                <col className="width1" />
-                <col className="width2" />
-                <col className="width3" />
-              </colgroup>
-              <thead>
-                <tr>
-                  <Th>&alpha;</Th>
-                  <Th>&beta;</Th>
-                  <Th>&gamma;</Th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>{parseFloat(result?.angle_x!).toFixed(2)}</td>
-                  <td>{parseFloat(result?.angle_y!).toFixed(2)}</td>
-                  <td>{parseFloat(result?.angle_z!).toFixed(2)}</td>
-                </tr>
-              </tbody>
-            </table>
-          </Div>
-        </div>
-        <div style={{ width: "40%", marginLeft: "400px", marginTop: "100px" }}>
           <Section id="elastic constants" />
           <PropertiesWrapper>
             <MatrixWrapper>
@@ -442,10 +326,158 @@ function MaterialPage() {
           </PiezoWrapper>
 
           <Section id="literature references" />
-          <PropertiesWrapper>
-            <PropertyH1>Literature References</PropertyH1>
-          </PropertiesWrapper>
         </div>
+
+        <Div>
+          <ul
+            style={{
+              width: "90%",
+              height: "60%",
+              display: "flex",
+              flexDirection: "column",
+              marginTop: "30px",
+              alignItems: "center",
+            }}
+          >
+            <PropertyH1 style={{ marginBottom: "20px" }}>Properties</PropertyH1>
+            <Li1>
+              <div>
+                <H1_unified_black>{"Formula"}</H1_unified_black>
+              </div>
+              <div>
+                <H1_unified_black>{result?.name}</H1_unified_black>
+              </div>
+            </Li1>
+            <Li1>
+              <div>
+                <H1_unified_black>{"Phase"}</H1_unified_black>
+              </div>
+              <div>
+                <H1_unified_black>{result?.Phase}</H1_unified_black>
+              </div>
+            </Li1>
+            <Li1>
+              <div>
+                <H1_unified_black>{"Space Group"}</H1_unified_black>
+              </div>
+              <div>
+                <H1_unified_black>{result?.space_group}</H1_unified_black>
+              </div>
+            </Li1>
+            <Li1>
+              <div>
+                <H1 style={{ fontSize: "10px", fontWeight: "bold" }}>
+                  <Latex>{formation}</Latex>
+                </H1>
+              </div>
+              <div>
+                <H1_unified_black>
+                  {parseFloat(result?.energy_form!).toFixed(2)}
+                </H1_unified_black>
+              </div>
+            </Li1>
+            <Li1>
+              <div>
+                <H1 style={{ fontSize: "10px", fontWeight: "bold" }}>
+                  <Latex>{band}</Latex>
+                </H1>
+              </div>
+              <div>
+                <H1_unified_black>
+                  {parseFloat(result?.Eg_pbe!).toFixed(2)}
+                </H1_unified_black>
+              </div>
+            </Li1>
+            <Li1>
+              <div>
+                <H1 style={{ fontSize: "10px", fontWeight: "bold" }}>
+                  <Latex>{syn}</Latex>
+                </H1>
+              </div>
+              <div>
+                <H1_unified_black>
+                  {parseFloat(result?.synthesis_index!).toFixed(2)}
+                </H1_unified_black>
+              </div>
+            </Li1>
+          </ul>
+          <PropertyH1>Lattice Constants</PropertyH1>
+          {/* a,b,c, */}
+          <table className="cool-table">
+            <colgroup>
+              <col className="width1" />
+              <col className="width2" />
+              <col className="width3" />
+            </colgroup>
+            <thead>
+              <tr>
+                <Th>
+                  <H1_unified>a</H1_unified>
+                </Th>
+                <Th>
+                  <H1_unified>b</H1_unified>
+                </Th>
+                <Th>
+                  <H1_unified>c</H1_unified>
+                </Th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <H1_unified_black>
+                    {parseFloat(result?.latt_x!).toFixed(2)}
+                  </H1_unified_black>
+                </td>
+                <td>
+                  <H1_unified_black>
+                    {parseFloat(result?.latt_y!).toFixed(2)}
+                  </H1_unified_black>
+                </td>
+                <td>
+                  <H1_unified_black>
+                    {parseFloat(result?.latt_z!).toFixed(2)}
+                  </H1_unified_black>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          {/* gamma */}
+
+          <table className="cool-table">
+            <colgroup>
+              <col className="width1" />
+              <col className="width2" />
+              <col className="width3" />
+            </colgroup>
+            <thead>
+              <tr>
+                <Th>&alpha;</Th>
+                <Th>&beta;</Th>
+                <Th>&gamma;</Th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <H1_unified_black>
+                    {parseFloat(result?.angle_x!).toFixed(2)}
+                  </H1_unified_black>
+                </td>
+                <td>
+                  <H1_unified_black>
+                    {parseFloat(result?.angle_y!).toFixed(2)}
+                  </H1_unified_black>
+                </td>
+                <td>
+                  <H1_unified_black>
+                    {parseFloat(result?.angle_z!).toFixed(2)}
+                  </H1_unified_black>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </Div>
       </Wrapper>
     );
   } else {

@@ -30,10 +30,15 @@ const Hr = styled.hr`
   width: 100%;
 `;
 
-const H1 = styled.h1`
+export const H1_unified = styled.h1`
   font-family: "Merriweather", serif;
   color: #29b1da;
-  font-size: 30px;
+  font-size: 18px;
+`;
+export const H1_unified_black = styled.h1`
+  font-family: "Merriweather", serif;
+  color: black;
+  font-size: 18px;
 `;
 
 const Sub = styled.sub`
@@ -180,12 +185,12 @@ function Search() {
         <SearchWrapper>
           <SideBar {...info!} />
           <div style={{ width: "80%", marginInline: "20px" }}>
-            <div style={{ height: "70px" }}>
-              <H1>
+            <div style={{ height: "50px" }}>
+              <H1_unified>
                 {!isLoading
                   ? `There Is Total of ${showResult?.length} Materials.`
                   : `Loading...`}
-              </H1>
+              </H1_unified>
             </div>
             {!isLoading ? (
               <table className="cool-table">
@@ -203,9 +208,15 @@ function Search() {
                 </colgroup>
                 <thead>
                   <tr>
-                    <Th>Formula</Th>
-                    <Th>Phase</Th>
-                    <Th>Space Group</Th>
+                    <Th>
+                      <H1_unified>Formula</H1_unified>
+                    </Th>
+                    <Th>
+                      <H1_unified>Phase</H1_unified>
+                    </Th>
+                    <Th>
+                      <H1_unified>Space Group</H1_unified>
+                    </Th>
                     <Th style={{ fontSize: "10px" }}>
                       <Latex>{formation}</Latex>
                     </Th>
@@ -216,16 +227,24 @@ function Search() {
                       <Latex>{band}</Latex>
                     </Th>
                     <Th>
-                      d<Sub>11</Sub>
+                      <H1_unified>
+                        d<sub>11</sub>
+                      </H1_unified>
                     </Th>
                     <Th>
-                      d<Sub>22</Sub>
+                      <H1_unified>
+                        d<sub>22</sub>
+                      </H1_unified>
                     </Th>
                     <Th>
-                      d<Sub>31</Sub>
+                      <H1_unified>
+                        d<sub>31</sub>
+                      </H1_unified>
                     </Th>
                     <Th>
-                      d<Sub>32</Sub>
+                      <H1_unified>
+                        d<sub>32</sub>
+                      </H1_unified>
                     </Th>
                   </tr>
                 </thead>
@@ -240,25 +259,59 @@ function Search() {
                               window.location.reload();
                             }}
                           >
-                            <td>{item.name}</td>
-                            <td>{item.Phase}</td>
-                            <td>{item.space_group}</td>
-                            <td>{parseFloat(item.energy_form).toFixed(2)}</td>
                             <td>
-                              {parseFloat(item.synthesis_index).toFixed(2)}
-                            </td>
-                            <td>{parseFloat(item.Eg_pbe).toFixed(2)}</td>
-                            <td>
-                              {item.d11 ? parseFloat(item.d11).toFixed(2) : "-"}
+                              <H1_unified_black>{item.name}</H1_unified_black>
                             </td>
                             <td>
-                              {item.d22 ? parseFloat(item.d22).toFixed(2) : "-"}
+                              <H1_unified_black>{item.Phase}</H1_unified_black>
                             </td>
                             <td>
-                              {item.d31 ? parseFloat(item.d31).toFixed(2) : "-"}
+                              <H1_unified_black>
+                                {item.space_group}
+                              </H1_unified_black>
                             </td>
                             <td>
-                              {item.d32 ? parseFloat(item.d32).toFixed(2) : "-"}
+                              <H1_unified_black>
+                                {parseFloat(item.energy_form).toFixed(2)}
+                              </H1_unified_black>
+                            </td>
+                            <td>
+                              <H1_unified_black>
+                                {parseFloat(item.synthesis_index).toFixed(2)}
+                              </H1_unified_black>
+                            </td>
+                            <td>
+                              <H1_unified_black>
+                                {parseFloat(item.Eg_pbe).toFixed(2)}
+                              </H1_unified_black>
+                            </td>
+                            <td>
+                              <H1_unified_black>
+                                {item.d11
+                                  ? parseFloat(item.d11).toFixed(2)
+                                  : "-"}
+                              </H1_unified_black>
+                            </td>
+                            <td>
+                              <H1_unified_black>
+                                {item.d22
+                                  ? parseFloat(item.d22).toFixed(2)
+                                  : "-"}
+                              </H1_unified_black>
+                            </td>
+                            <td>
+                              <H1_unified_black>
+                                {item.d31
+                                  ? parseFloat(item.d31).toFixed(2)
+                                  : "-"}
+                              </H1_unified_black>
+                            </td>
+                            <td>
+                              <H1_unified_black>
+                                {item.d32
+                                  ? parseFloat(item.d32).toFixed(2)
+                                  : "-"}
+                              </H1_unified_black>
                             </td>
                           </tr>
                         );

@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { useRecoilState } from "recoil";
 import { BoundState, PhaseState } from "../../assets/atom";
-import { infoProps } from "../../pages/Search";
+import { H1_unified, infoProps } from "../../pages/Search";
 import Filter from "./filter";
 
 const Wrapper = styled.div`
@@ -19,11 +19,6 @@ const Wrapper = styled.div`
   justify-content: space-around;
 `;
 
-const H3 = styled.h1`
-  font-size: 30px;
-  color: #29b1da;
-  font-family: "Merriweather", serif;
-`;
 function SideBar({
   minSynIndex,
   maxSynIndex,
@@ -54,7 +49,7 @@ function SideBar({
 
   return (
     <Wrapper className="sidebar">
-      <H3># Options</H3>
+      <H1_unified># Options</H1_unified>
 
       <Filter
         minBound={minSynIndex}
@@ -71,17 +66,17 @@ function SideBar({
       <Filter
         minBound={minD11}
         maxBound={maxD11}
-        filterName={"$| d11 |$"}
+        filterName={"$| d_{11} |$"}
         BoundIndex={2}
       />
       <Filter
         minBound={minD31}
         maxBound={maxD31}
-        filterName={"$| d31 |$"}
+        filterName={"$| d_{31} |$"}
         BoundIndex={3}
       />
       {/* radioes */}
-      <H3>Phase</H3>
+      <H1_unified>Phase</H1_unified>
       <div style={{ display: "flex", justifyContent: "space-around" }}>
         <label>
           <input

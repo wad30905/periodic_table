@@ -68,7 +68,10 @@ table {
 	height: 2000px;
 }
 .search-box {
+	margin-top: 25px;
+	margin-bottom: 20px;
 	width: 80%;
+	height: 60px;
   display: flex;
   align-items: center;
   background-color: #fff;
@@ -81,18 +84,23 @@ table {
   border: none;
   flex: 1;
   margin-right: 10px;
-  font-size: 16px;
+  font-size: 28px;
+	padding-left: 10px;
   color: #333;
   outline: none;
+  font-family: "Merriweather", serif;
+
 }
 
 .search-box button[type="submit"] {
+	width: 50px;
+	height: 50px;
   border: none;
   background-color: #f7941e;
   color: #fff;
   border-radius: 50%;
-  padding: 10px 16px;
-  font-size: 16px;
+	text-align: center;
+  font-size: 25px;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 }
