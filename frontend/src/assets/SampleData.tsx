@@ -15,7 +15,7 @@ export const elementClasses: ElementClassesProps = {
   Metalloids: ["#B7E2F5", "#24AAE1"],
   "Post-transition metals": ["#BCE4C1", "#3AB54B"],
   "Noble gases": ["#CDBADB", "#662D91"],
-  Actinides: ["#EFEECC", "CCCC65"],
+  Actinides: ["#EFEECC", "#CCCC65"],
   Halogen: ["#CCCDE4", "#6566AE"],
   empty: ["white"],
 };

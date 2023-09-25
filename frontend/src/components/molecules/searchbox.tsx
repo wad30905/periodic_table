@@ -14,6 +14,7 @@ function SearchBox() {
       }}
     >
       <input
+        className="h1_unified"
         type="text"
         placeholder="Search..."
         onChange={(e: any) => setSearchStr(e.target.value)}

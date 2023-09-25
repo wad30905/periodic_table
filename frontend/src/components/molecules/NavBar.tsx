@@ -2,14 +2,14 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { FiSearch } from "react-icons/fi";
 import { CgProfile } from "react-icons/cg";
+import JanusNet_Logo from "../../assets/images/janusnet_logo.png";
+
 export const Img = styled.img`
-  width: 60px;
-  height: 60px;
+  height: 100px;
 `;
 
 export const H1_logo = styled.h1`
   margin-left: 10px;
-  font-family: "Merriweather", serif;
   color: #29b1da;
   font-size: 40px;
 `;
@@ -25,7 +25,8 @@ export const Nav = styled.div`
   align-items: center;
   justify-content: space-between;
   z-index: 1000;
-  height: 50px;
+  height: 200px;
+  background: pink;
 `;
 
 export const H1_White = styled.div`
@@ -46,15 +47,15 @@ function NavBar() {
   useEffect(() => {
     const topbar = topBarRef.current;
     const threshold = 50;
-    window.addEventListener("scroll", function () {
-      if (window.pageYOffset > threshold) {
-        topbar!.classList.add("scrolled");
-        setScrolled(true);
-      } else {
-        topbar!.classList.remove("scrolled");
-        setScrolled(false);
-      }
-    });
+    // window.addEventListener("scroll", function () {
+    //   if (window.pageYOffset > threshold) {
+    //     topbar!.classList.add("scrolled");
+    //     setScrolled(true);
+    //   } else {
+    //     topbar!.classList.remove("scrolled");
+    //     setScrolled(false);
+    //   }
+    // });
   }, []);
   console.log("scrolled", scrolled);
   const logo = "$$ \\textsc{Hallo} $$";
@@ -70,7 +71,7 @@ function NavBar() {
             justifyContent: "space-between",
           }}
         >
-          {scrolled ? <H1_logo>JanusNet</H1_logo> : <H1_logo>JanusNet</H1_logo>}
+          <Img src={`${JanusNet_Logo}`}></Img>
         </a>
       </div>
       <div

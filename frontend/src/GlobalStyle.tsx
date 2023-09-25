@@ -52,7 +52,7 @@ table {
 	background: white;
 }
 .topbar {
-	height: 50px;
+	height: 100px;
 	background-color: white;
 	position: fixed;
 	top: 0;
@@ -60,9 +60,6 @@ table {
 	transition: background-color 0.3s ease-in-out;
 }
 
-.topbar.scrolled {
-	background-color: #212121;
-}
 
 .content {
 	height: 2000px;
@@ -88,8 +85,6 @@ table {
 	padding-left: 10px;
   color: #333;
   outline: none;
-  font-family: "Merriweather", serif;
-
 }
 
 .search-box button[type="submit"] {

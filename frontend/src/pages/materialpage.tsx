@@ -9,7 +9,7 @@ import { H1_unified, H1_unified_black, Material } from "./Search";
 import { CgEnter } from "react-icons/cg";
 
 const Wrapper = styled.div`
-  padding-top: 100px;
+  padding-top: 150px;
   height: 2500px;
   background: #eee;
   display: flex;
@@ -18,7 +18,6 @@ const Wrapper = styled.div`
 const H3 = styled.h1`
   font-size: 40px;
   font-weigth: bold;
-  font-family: "Merriweather", serif;
 `;
 const Navigator = styled.div`
   width: 350px;
@@ -26,7 +25,7 @@ const Navigator = styled.div`
   background: #ddd;
   flex-shrink: 0; /* Prevent the left column from shrinking */
   position: fixed;
-  top: 100px;
+  top: 150px;
   left: 10px;
   border-radius: 10px;
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
@@ -51,6 +50,7 @@ const HtmlImg = styled.img`
   display: block;
 `;
 const Ul = styled.ul`
+  list-style-type: none;
   margin-bottom: 200px;
   width: 80%;
   height: 400px;
@@ -65,7 +65,6 @@ const Ul = styled.ul`
 `;
 const A = styled(Link)`
   font-size: 30px;
-  font-family: "Merriweather", serif;
   color: #999;
   &:hover {
     color: #ffa933;
@@ -74,7 +73,6 @@ const A = styled(Link)`
 const A1 = styled(Link)`
   font-size: 20px;
   color: #999;
-  font-family: "Merriweather", serif;
 
   &:hover {
     color: #ffa933;
@@ -83,7 +81,6 @@ const A1 = styled(Link)`
 
 const Section = styled.div`
   height: 100px;
-  margin-top: -100px;
   visibility: hidden;
 `;
 
@@ -168,12 +165,10 @@ const MatrixWrapper = styled.div`
 const PropertyH1 = styled.h1`
   display: block;
   font-size: 32px;
-  font-family: "Merriweather", serif;
 `;
 const PropertyH2 = styled.h1`
   display: block;
   font-size: 20px;
-  font-family: "Merriweather", serif;
 `;
 const Th = styled.th`
   font-size: 10px;
@@ -214,9 +209,9 @@ function MaterialPage() {
     };
   }, []);
   console.log("result", result);
-  const band = "$E_g^{GGA} [eV]$";
-  const formation = "${\\Delta}H_f^{GGA} [eV/f.u.]$";
-  const syn = "${\\Delta}H_{syn} [eV/f.u.]$";
+  const band = "$ \\textit{E}_g^{GGA} [eV]$";
+  const formation = "${\\Delta}  \\textit{H}_f^{GGA} [eV/f.u.]$";
+  const syn = "${\\Delta}  \\textit{H}_{syn} [eV/f.u.]$";
 
   if (!isLoading) {
     return (
@@ -274,7 +269,7 @@ function MaterialPage() {
               </li>
               <li>
                 <A1 smooth to={"#piezoelectric constants"}>
-                  Piezoelectric Constant
+                  Piezoelectric Constants
                 </A1>
               </li>
             </div>
@@ -291,7 +286,7 @@ function MaterialPage() {
         >
           <Section id="crystal structure"></Section>
           <HtmlWrapper>
-            <PropertyH1>Crystal Structure</PropertyH1>
+            <PropertyH1 className="h1_unified">Crystal Structure</PropertyH1>
             <HtmlImg
               src={`/images/${result?.Phase}_pngs/${result?.name}.png`}
             ></HtmlImg>
@@ -303,24 +298,36 @@ function MaterialPage() {
             <MatrixWrapper>
               <PropertyH1>Elastic Constants</PropertyH1>
               <div>
-                <Latex>{`$$\\begin{bmatrix}C_{11} & C_{12} & C_{13} \\\\ C_{21} & C_{22} & C_{23} \\\\ C_{31} & C_{32} & C_{33} \\end{bmatrix} = \\begin{bmatrix} ${result?.C11} & ${result?.C12} & -\\\\ ${result?.C21} & ${result?.C22} & - \\\\ - & - & -\\end{bmatrix}$$`}</Latex>
+                <Latex>{`$$\\begin{bmatrix} \\textit{C}_{11} & \\textit{C}_{12} & \\textit{C}_{13} \\\\ \\textit{C}_{21} & \\textit{C}_{22} & \\textit{C}_{23} \\\\ \\textit{C}_{31} & \\textit{C}_{32} & \\textit{C}_{33} \\end{bmatrix} = \\begin{bmatrix} ${result?.C11} & ${result?.C12} & -\\\\ ${result?.C21} & ${result?.C22} & - \\\\ - & - & -\\end{bmatrix}$$`}</Latex>
               </div>
             </MatrixWrapper>
           </PropertiesWrapper>
           <Section id="piezoelectric constants" />
           <PiezoWrapper>
             <MatrixWrapper>
-              <PropertyH1>Piezoelectric Constant</PropertyH1>
+              <PropertyH1>Piezoelectric Constants</PropertyH1>
 
               <PropertyH2>converse</PropertyH2>
 
               <div>
-                <Latex>{`$$\\begin{bmatrix}e_{11} & e_{12} & e_{13} \\\\ e_{21} & e_{22} & e_{23} \\\\ e_{31} & e_{32} & e_{33} \\end{bmatrix} = \\begin{bmatrix} ${result?.e11} & - & -\\\\ - & ${result?.e22} & - \\\\ ${result?.e31} & ${result?.e32} & -\\end{bmatrix}$$`}</Latex>
+                <Latex>{`$$\\begin{bmatrix} \\textit{e}_{11} & \\textit{e}_{12} & \\textit{e}_{13} \\\\ \\textit{e}_{21} & \\textit{e}_{22} & \\textit{e}_{23} \\\\ \\textit{e}_{31} & \\textit{e}_{32} & \\textit{e}_{33} \\end{bmatrix} = \\begin{bmatrix} ${
+                  result?.e11 ? result?.e11 : "-"
+                } & - & -\\\\ - & ${result?.e22 ? result?.e22 : "-"} & - \\\\ ${
+                  result?.e31 ? result?.e31 : "-"
+                } & ${
+                  result?.e32 ? result?.e32 : "-"
+                } & -\\end{bmatrix}$$`}</Latex>
               </div>
               <PropertyH2>direct</PropertyH2>
 
               <div>
-                <Latex>{`$$\\begin{bmatrix} | d_{11} | & | d_{12} | & | d_{13} | \\\\ | d_{21} | & | d_{22} | & | d_{23} | \\\\ | d_{31} | & | d_{32} | & | d_{33} | \\end{bmatrix} = \\begin{bmatrix} ${result?.d11} & - & -\\\\ - & ${result?.d22} & - \\\\ ${result?.d31} & ${result?.d32} & -\\end{bmatrix}$$`}</Latex>
+                <Latex>{`$$\\begin{bmatrix} | \\textit{d}_{11} | & | \\textit{d}_{12} | & | \\textit{d}_{13} | \\\\ | \\textit{d}_{21} | & | \\textit{d}_{22} | & | \\textit{d}_{23} | \\\\ | \\textit{d}_{31} | & | \\textit{d}_{32} | & | \\textit{d}_{33} | \\end{bmatrix} = \\begin{bmatrix} ${
+                  result?.d11 ? result?.d11 : "-"
+                } & - & -\\\\ - & ${result?.d22 ? result?.d22 : "-"} & - \\\\ ${
+                  result?.d31 ? result?.d31 : "-"
+                } & ${
+                  result?.d32 ? result?.d32 : "-"
+                } & -\\end{bmatrix}$$`}</Latex>
               </div>
             </MatrixWrapper>
           </PiezoWrapper>
@@ -342,26 +349,38 @@ function MaterialPage() {
             <PropertyH1 style={{ marginBottom: "20px" }}>Properties</PropertyH1>
             <Li1>
               <div>
-                <H1_unified_black>{"Formula"}</H1_unified_black>
+                <H1_unified_black className="h1_unified">
+                  {"Formula"}
+                </H1_unified_black>
               </div>
               <div>
-                <H1_unified_black>{result?.name}</H1_unified_black>
-              </div>
-            </Li1>
-            <Li1>
-              <div>
-                <H1_unified_black>{"Phase"}</H1_unified_black>
-              </div>
-              <div>
-                <H1_unified_black>{result?.Phase}</H1_unified_black>
+                <H1_unified_black className="h1_unified">
+                  {result?.name}
+                </H1_unified_black>
               </div>
             </Li1>
             <Li1>
               <div>
-                <H1_unified_black>{"Space Group"}</H1_unified_black>
+                <H1_unified_black className="h1_unified">
+                  {"Phase"}
+                </H1_unified_black>
               </div>
               <div>
-                <H1_unified_black>{result?.space_group}</H1_unified_black>
+                <H1_unified_black className="h1_unified">
+                  {result?.Phase}
+                </H1_unified_black>
+              </div>
+            </Li1>
+            <Li1>
+              <div>
+                <H1_unified_black className="h1_unified">
+                  {"Space Group"}
+                </H1_unified_black>
+              </div>
+              <div>
+                <H1_unified_black className="h1_unified">
+                  {result?.space_group}
+                </H1_unified_black>
               </div>
             </Li1>
             <Li1>
@@ -371,9 +390,11 @@ function MaterialPage() {
                 </H1>
               </div>
               <div>
-                <H1_unified_black>
-                  {parseFloat(result?.energy_form!).toFixed(2)}
-                </H1_unified_black>
+                <H1 style={{ fontSize: "10px", fontWeight: "bold" }}>
+                  <Latex>{`$$${parseFloat(result?.energy_form!).toFixed(
+                    2
+                  )}$$`}</Latex>
+                </H1>
               </div>
             </Li1>
             <Li1>
@@ -383,9 +404,11 @@ function MaterialPage() {
                 </H1>
               </div>
               <div>
-                <H1_unified_black>
-                  {parseFloat(result?.Eg_pbe!).toFixed(2)}
-                </H1_unified_black>
+                <H1 style={{ fontSize: "10px", fontWeight: "bold" }}>
+                  <Latex>{`$$${parseFloat(result?.Eg_pbe!).toFixed(
+                    2
+                  )}$$`}</Latex>
+                </H1>
               </div>
             </Li1>
             <Li1>
@@ -395,9 +418,11 @@ function MaterialPage() {
                 </H1>
               </div>
               <div>
-                <H1_unified_black>
-                  {parseFloat(result?.synthesis_index!).toFixed(2)}
-                </H1_unified_black>
+                <H1 style={{ fontSize: "10px", fontWeight: "bold" }}>
+                  <Latex>{`$$${parseFloat(result?.synthesis_index!).toFixed(
+                    2
+                  )}$$`}</Latex>
+                </H1>
               </div>
             </Li1>
           </ul>
@@ -411,31 +436,31 @@ function MaterialPage() {
             </colgroup>
             <thead>
               <tr>
-                <Th>
-                  <H1_unified>a</H1_unified>
+                <Th style={{ fontSize: "10px" }}>
+                  <Latex>{`$$\\textit{a}$$`}</Latex>
                 </Th>
-                <Th>
-                  <H1_unified>b</H1_unified>
+                <Th style={{ fontSize: "10px" }}>
+                  <Latex>{`$$\\textit{b}$$`}</Latex>
                 </Th>
-                <Th>
-                  <H1_unified>c</H1_unified>
+                <Th style={{ fontSize: "10px" }}>
+                  <Latex>{`$$\\textit{c}$$`}</Latex>
                 </Th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td>
-                  <H1_unified_black>
+                  <H1_unified_black className="h1_unified">
                     {parseFloat(result?.latt_x!).toFixed(2)}
                   </H1_unified_black>
                 </td>
                 <td>
-                  <H1_unified_black>
+                  <H1_unified_black className="h1_unified">
                     {parseFloat(result?.latt_y!).toFixed(2)}
                   </H1_unified_black>
                 </td>
                 <td>
-                  <H1_unified_black>
+                  <H1_unified_black className="h1_unified">
                     {parseFloat(result?.latt_z!).toFixed(2)}
                   </H1_unified_black>
                 </td>
@@ -460,17 +485,17 @@ function MaterialPage() {
             <tbody>
               <tr>
                 <td>
-                  <H1_unified_black>
+                  <H1_unified_black className="h1_unified">
                     {parseFloat(result?.angle_x!).toFixed(2)}
                   </H1_unified_black>
                 </td>
                 <td>
-                  <H1_unified_black>
+                  <H1_unified_black className="h1_unified">
                     {parseFloat(result?.angle_y!).toFixed(2)}
                   </H1_unified_black>
                 </td>
                 <td>
-                  <H1_unified_black>
+                  <H1_unified_black className="h1_unified">
                     {parseFloat(result?.angle_z!).toFixed(2)}
                   </H1_unified_black>
                 </td>

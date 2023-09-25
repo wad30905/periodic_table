@@ -14,7 +14,6 @@ interface filterProps {
 const H3 = styled.h1`
   font-size: 30px;
   color: #29b1da;
-  font-family: "Merriweather", serif;
 `;
 const ThumbWrapper = styled.div`
   position: absolute;

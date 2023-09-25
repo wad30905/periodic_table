@@ -1,0 +1,17 @@
+@font-face {
+  font-family: Imported1;
+  src: url(./font/cmunrm.ttf);
+}
+
+.h1_unified {
+  font-family: Imported1;
+}
+
+@font-face {
+  font-family: Imported2;
+  src: url(./font/ARIAL.TTF);
+}
+
+.ElementWrapper {
+  font-family: Imported2;
+}

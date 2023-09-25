@@ -4,12 +4,14 @@ import React, { useEffect, useState } from "react";
 import Latex from "react-latex";
 import { useNavigate, useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
-import styled from "styled-components";
 import { BASE_URL } from "../api";
 import { BoundState, PhaseState } from "../assets/atom";
 import SearchBox from "../components/molecules/searchbox";
 import SideBar from "../components/molecules/SideBar";
 import Spinner from "../components/molecules/Spinner";
+import styled from "styled-components";
+import "./Search.css";
+// @ts-ignore
 
 export const TableWrapper = styled.div`
   display: flex;
@@ -31,12 +33,10 @@ const Hr = styled.hr`
 `;
 
 export const H1_unified = styled.h1`
-  font-family: "Merriweather", serif;
   color: #29b1da;
   font-size: 18px;
 `;
 export const H1_unified_black = styled.h1`
-  font-family: "Merriweather", serif;
   color: black;
   font-size: 18px;
 `;
@@ -171,13 +171,13 @@ function Search() {
     );
   }, [Bound, PhaseArr]);
 
-  const formation = "${\\Delta}H_f^{GGA} \\\\ [eV/f.u.]$";
-  const syn = "${\\Delta}H_{syn} \\\\ [eV/f.u.]$";
-  const band = "$E_g^{GGA} \\\\ [eV]$";
+  const formation = "${\\Delta} \\textit{H}_f^{GGA} \\\\ [eV/f.u.]$";
+  const syn = "${\\Delta} \\textit{H}_{syn} \\\\ [eV/f.u.]$";
+  const band = "$ \\textit{E}_g^{GGA} \\\\ [eV]$";
 
   return (
     <div style={{ height: "3000px" }}>
-      <div style={{ marginTop: "100px" }}>
+      <div style={{ marginTop: "150px" }}>
         <TableWrapper>
           <SearchBox />
           <Hr />
@@ -186,7 +186,7 @@ function Search() {
           <SideBar {...info!} />
           <div style={{ width: "80%", marginInline: "20px" }}>
             <div style={{ height: "50px" }}>
-              <H1_unified>
+              <H1_unified className="h1_unified">
                 {!isLoading
                   ? `There Is Total of ${showResult?.length} Materials.`
                   : `Loading...`}
@@ -209,13 +209,15 @@ function Search() {
                 <thead>
                   <tr>
                     <Th>
-                      <H1_unified>Formula</H1_unified>
+                      <H1_unified className="h1_unified">Formula</H1_unified>
                     </Th>
                     <Th>
-                      <H1_unified>Phase</H1_unified>
+                      <H1_unified className="h1_unified">Phase</H1_unified>
                     </Th>
                     <Th>
-                      <H1_unified>Space Group</H1_unified>
+                      <H1_unified className="h1_unified">
+                        Space Group
+                      </H1_unified>
                     </Th>
                     <Th style={{ fontSize: "10px" }}>
                       <Latex>{formation}</Latex>
@@ -226,25 +228,17 @@ function Search() {
                     <Th style={{ fontSize: "10px" }}>
                       <Latex>{band}</Latex>
                     </Th>
-                    <Th>
-                      <H1_unified>
-                        d<sub>11</sub>
-                      </H1_unified>
+                    <Th style={{ fontSize: "10px" }}>
+                      <Latex>{`$\\textit{d}_{11}$`}</Latex>
                     </Th>
-                    <Th>
-                      <H1_unified>
-                        d<sub>22</sub>
-                      </H1_unified>
+                    <Th style={{ fontSize: "10px" }}>
+                      <Latex>{`$\\textit{d}_{22}$`}</Latex>
                     </Th>
-                    <Th>
-                      <H1_unified>
-                        d<sub>31</sub>
-                      </H1_unified>
+                    <Th style={{ fontSize: "10px" }}>
+                      <Latex>{`$$\\textit{d}_{31}$$`}</Latex>
                     </Th>
-                    <Th>
-                      <H1_unified>
-                        d<sub>32</sub>
-                      </H1_unified>
+                    <Th style={{ fontSize: "10px" }}>
+                      <Latex>{`$\\textit{d}_{32}$`}</Latex>
                     </Th>
                   </tr>
                 </thead>
@@ -260,54 +254,58 @@ function Search() {
                             }}
                           >
                             <td>
-                              <H1_unified_black>{item.name}</H1_unified_black>
+                              <H1_unified_black className="h1_unified">
+                                {item.name}
+                              </H1_unified_black>
                             </td>
                             <td>
-                              <H1_unified_black>{item.Phase}</H1_unified_black>
+                              <H1_unified_black className="h1_unified">
+                                {item.Phase}
+                              </H1_unified_black>
                             </td>
                             <td>
-                              <H1_unified_black>
+                              <H1_unified_black className="h1_unified">
                                 {item.space_group}
                               </H1_unified_black>
                             </td>
                             <td>
-                              <H1_unified_black>
+                              <H1_unified_black className="h1_unified">
                                 {parseFloat(item.energy_form).toFixed(2)}
                               </H1_unified_black>
                             </td>
                             <td>
-                              <H1_unified_black>
+                              <H1_unified_black className="h1_unified">
                                 {parseFloat(item.synthesis_index).toFixed(2)}
                               </H1_unified_black>
                             </td>
                             <td>
-                              <H1_unified_black>
+                              <H1_unified_black className="h1_unified">
                                 {parseFloat(item.Eg_pbe).toFixed(2)}
                               </H1_unified_black>
                             </td>
                             <td>
-                              <H1_unified_black>
+                              <H1_unified_black className="h1_unified">
                                 {item.d11
                                   ? parseFloat(item.d11).toFixed(2)
                                   : "-"}
                               </H1_unified_black>
                             </td>
                             <td>
-                              <H1_unified_black>
+                              <H1_unified_black className="h1_unified">
                                 {item.d22
                                   ? parseFloat(item.d22).toFixed(2)
                                   : "-"}
                               </H1_unified_black>
                             </td>
                             <td>
-                              <H1_unified_black>
+                              <H1_unified_black className="h1_unified">
                                 {item.d31
                                   ? parseFloat(item.d31).toFixed(2)
                                   : "-"}
                               </H1_unified_black>
                             </td>
                             <td>
-                              <H1_unified_black>
+                              <H1_unified_black className="h1_unified">
                                 {item.d32
                                   ? parseFloat(item.d32).toFixed(2)
                                   : "-"}

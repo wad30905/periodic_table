@@ -88,6 +88,7 @@ function Element({
       <div style={{ position: "relative" }}>
         <NullWrapper />
         <ElementWrapper
+          className="ElementWrapper"
           color={elementClasses[elementClassName][0]}
           border={elementClasses[elementClassName][1]}
           onClick={onclick}

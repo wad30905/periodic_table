@@ -60,7 +60,7 @@ function Home() {
 
   return (
     <div id="content" style={{ height: "700px" }}>
-      <div style={{ marginTop: "100px" }}>
+      <div style={{ marginTop: "150px" }}>
         <TableWrapper>
           <form
             className="search-box"

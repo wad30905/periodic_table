@@ -8,7 +8,7 @@ import Filter from "./filter";
 
 const Wrapper = styled.div`
   position: sticky;
-  top: 100px;
+  top: 150px;
   border: 1px solid #dddddd;
   padding: 20px;
   margin: 10px;
@@ -44,12 +44,12 @@ function SideBar({
     }
   };
   console.log(selectedOptions);
-  const band = "$E_g^{GGA} [eV]$";
-  const syn = "${\\Delta}H_{syn} [eV/f.u.]$";
+  const band = "$ \\textit{E}_g^{GGA} [eV]$";
+  const syn = "${\\Delta} \\textit{H}_{syn} [eV/f.u.]$";
 
   return (
     <Wrapper className="sidebar">
-      <H1_unified># Options</H1_unified>
+      <H1_unified className="h1_unified"># Options</H1_unified>
 
       <Filter
         minBound={minSynIndex}
@@ -66,17 +66,17 @@ function SideBar({
       <Filter
         minBound={minD11}
         maxBound={maxD11}
-        filterName={"$| d_{11} |$"}
+        filterName={"$| \\textit{d}_{11} |$"}
         BoundIndex={2}
       />
       <Filter
         minBound={minD31}
         maxBound={maxD31}
-        filterName={"$| d_{31} |$"}
+        filterName={"$| \\textit{d}_{31} |$"}
         BoundIndex={3}
       />
       {/* radioes */}
-      <H1_unified>Phase</H1_unified>
+      <H1_unified className="h1_unified">Phase</H1_unified>
       <div style={{ display: "flex", justifyContent: "space-around" }}>
         <label>
           <input
