@@ -216,7 +216,7 @@ function MaterialPage() {
   if (!isLoading) {
     return (
       <Wrapper>
-        <Navigator>
+        <Navigator className="h1_unified">
           <div
             style={{
               display: "flex",
@@ -237,7 +237,7 @@ function MaterialPage() {
               <H3>{result?.name}</H3>
             </div>
           </div>
-          <Ul>
+          <Ul className="h1_unified">
             <li>
               <A smooth to={"#overview"}>
                 Overview
@@ -284,17 +284,17 @@ function MaterialPage() {
             alignItems: "center",
           }}
         >
-          <Section id="crystal structure"></Section>
+          <Section id="crystal structure" className="h1_unified"></Section>
           <HtmlWrapper>
             <PropertyH1 className="h1_unified">Crystal Structure</PropertyH1>
             <HtmlImg
               src={`/images/${result?.Phase}_pngs/${result?.name}.png`}
             ></HtmlImg>
           </HtmlWrapper>
-          <Section id="properties"></Section>
-          <Section id="overview" />
-          <Section id="elastic constants" />
-          <PropertiesWrapper>
+          <Section id="properties" className="h1_unified"></Section>
+          <Section id="overview" className="h1_unified" />
+          <Section id="elastic constants" className="h1_unified" />
+          <PropertiesWrapper className="h1_unified">
             <MatrixWrapper>
               <PropertyH1>Elastic Constants</PropertyH1>
               <div>
@@ -304,7 +304,7 @@ function MaterialPage() {
           </PropertiesWrapper>
           <Section id="piezoelectric constants" />
           <PiezoWrapper>
-            <MatrixWrapper>
+            <MatrixWrapper className="h1_unified">
               <PropertyH1>Piezoelectric Constants</PropertyH1>
 
               <PropertyH2>converse</PropertyH2>
@@ -346,7 +346,9 @@ function MaterialPage() {
               alignItems: "center",
             }}
           >
-            <PropertyH1 style={{ marginBottom: "20px" }}>Properties</PropertyH1>
+            <PropertyH1 style={{ marginBottom: "20px" }} className="h1_unified">
+              Properties
+            </PropertyH1>
             <Li1>
               <div>
                 <H1_unified_black className="h1_unified">
@@ -426,7 +428,7 @@ function MaterialPage() {
               </div>
             </Li1>
           </ul>
-          <PropertyH1>Lattice Constants</PropertyH1>
+          <PropertyH1 className="h1_unified">Lattice Constants</PropertyH1>
           {/* a,b,c, */}
           <table className="cool-table">
             <colgroup>

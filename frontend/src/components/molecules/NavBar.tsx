@@ -58,7 +58,6 @@ function NavBar() {
     // });
   }, []);
   console.log("scrolled", scrolled);
-  const logo = "$$ \\textsc{Hallo} $$";
 
   return (
     <Nav ref={topBarRef} className="topbar">
